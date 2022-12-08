@@ -11,12 +11,18 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
       show-sql: true
+  session:
+    store-type: jdbc
+    jdbc:
+      schema: classpath:org/springframework/session/jdbc/schema-@@platform@@.sql
+      initialize-schema: embedded
+      table-name: SPRING_SESSION
 
   mail:
     host: localhost
@@ -35,3 +41,8 @@ spring:
           connectiontimeout: 5000
           timeout: 3000
           writetimeout: 5000
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG

@@ -1,0 +1,10 @@
+@import "fontcustomf1.css";
+h1{
+    font-family: formula1bold, fantasy;
+}
+label, img, p, a {
+    font-family: formula1regular, sans-serif;
+}
+button{
+    font-family: formula1bold, fantasy;
+}

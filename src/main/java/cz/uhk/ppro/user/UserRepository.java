@@ -12,14 +12,17 @@ import java.util.UUID;
 @Repository
 @Transactional(readOnly = true)
 public interface UserRepository
-        extends JpaRepository<User, UUID> {
+        extends JpaRepository<User, Long> {//typ id usera
 
-    Optional<User> findByEmail(String email);
+    Optional<User> findByEmail(String email);//není potřeba JPQL (Java Persistence...) dotaz
 
     @Transactional
     @Modifying
     @Query("UPDATE User a " +
             "SET a.enabled = TRUE WHERE a.email = ?1")
-    int enableUser(String email);
+    void enableUser(String email);//bylo int
+
+    User getUserByEmail(String email);
+
 
 }

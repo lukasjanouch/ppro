@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Galerie modelů F1</title>
+    <link href = "/images/favicon.png" rel = "icon" type = "image/png" >
+    <link href = "/css/general.css" rel = "stylesheet">
+</head>
+<body>
+    <header>
+        <div>
+            <a th:href="@{/login}">Přihlásit se</a>
+            <a th:href="@{/registrace}">Registrovat se</a>
+            <nav>
+                <ul>
+                    <li></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <h1>Galerie modelů F1</h1>
+    <section>
+        <div th:each="album : ${albumList}">
+            <p th:text="${album.name}">Název alba</p>
+            <p th:text="${album.author}">Autor</p>
+            <p th:text="${album.publisher}">Vydavatel</p>
+            <p th:text="${album.scale}">Měřítko</p>
+            <img th:src="@{${'/image/display/'+ album.id}}" width=300 alt="F1 model"/>
+        </div>
+    </section>
+
+</body>
+</html>
+

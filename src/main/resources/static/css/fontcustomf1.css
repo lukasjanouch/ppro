@@ -1,0 +1,29 @@
+@font-face {
+    font-family: formula1bold;
+    src: url(../fonts/Formula1-Bold.eot) format("embedded-opentype"),
+    url(../fonts/Formula1-Display-Bold.woff) format("woff"),
+    url(../fonts/Formula1-Bold.woff2) format("woff2"),
+    url(../fonts/Formula1-Bold.ttf) format("truetype");
+    font-weight: bold;
+}
+@font-face {
+    font-family: formula1regular;
+    src: url(../fonts/Formula1-Regular.eot) format("embedded-opentype"),
+    url(../fonts/Formula1-Display-Regular.woff) format("woff"),
+    url(../fonts/Formula1-Regular.woff2) format("woff2"),
+    url(../fonts/Formula1-Regular.ttf) format("truetype");
+}
+@font-face {
+    font-family: formula1wide;
+    src: url(../fonts/Formula1-Wide.eot) format("embedded-opentype"),
+    url(../fonts/Formula1-Display-Wide.woff) format("woff"),
+    url(../fonts/Formula1-Wide.woff2) format("woff2"),
+    url(../fonts/Formula1-Wide.ttf) format("truetype");
+}
+@font-face {
+    font-family: formula1black;
+    src: url(../fonts/Formula1-Black.eot) format("embedded-opentype"),
+    url(../fonts/Formula1-Display-Black.woff) format("woff"),
+    url(../fonts/Formula1-Black.woff2) format("woff2"),
+    url(../fonts/Formula1-Black.ttf) format("truetype");
+}

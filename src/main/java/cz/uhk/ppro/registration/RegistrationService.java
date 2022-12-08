@@ -5,6 +5,7 @@ import cz.uhk.ppro.email.EmailSender;
 import cz.uhk.ppro.registration.token.ConfirmationToken;
 import cz.uhk.ppro.registration.token.ConfirmationTokenService;
 import cz.uhk.ppro.user.User;
+import cz.uhk.ppro.user.UserDto;
 import cz.uhk.ppro.user.UserRole;
 import cz.uhk.ppro.user.UserService;
 import lombok.AllArgsConstructor;
@@ -13,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
-@Service
+@Service //= @Component, ale přesnější; aby byla nalezena v kontroleru, Dependency injection
 @AllArgsConstructor
 public class RegistrationService {
 
@@ -22,42 +23,40 @@ public class RegistrationService {
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailSender emailSender;
 
-    public String register(RegistrationRequest request) {
-        boolean isValidEmail = emailValidator.
-                test(request.getEmail());
+    public void register(UserDto userDto) {//původně String místo void
+        boolean isValidEmail = emailValidator
+                    .validate(userDto.getEmail());
 
         if (!isValidEmail) {
-            throw new IllegalStateException("email not valid");
+            throw new IllegalStateException("Email není zadán ve správném tvaru.");
         }
 
         String token = userService.signUpUser(
                 new User(
-                        request.getFirstName(),
-                        request.getLastName(),
-                        request.getEmail(),
-                        request.getPassword(),
+                        userDto.getFirstName(),
+                        userDto.getLastName(),
+                        userDto.getEmail(),
+                        userDto.getPassword(),
                         UserRole.USER
-
                 )
         );
-
-        String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
+        //původně api/v1/registration místo "registrace"
+        String link = "http://localhost:8080/registrace/confirm?token=" + token;
         emailSender.send(
-                request.getEmail(),
-                buildEmail(request.getFirstName(), link));
-
-        return token;
+                userDto.getEmail(),
+                buildEmail(userDto.getFirstName(), link));
+        //return token;
     }
 
     @Transactional
-    public String confirmToken(String token) {
+    public void confirmToken(String token) {//původně String místo void
         ConfirmationToken confirmationToken = confirmationTokenService
                 .getToken(token)
                 .orElseThrow(() ->
                         new IllegalStateException("token not found"));
 
         if (confirmationToken.getConfirmedAt() != null) {
-            throw new IllegalStateException("Email už byl ověřen");
+            throw new IllegalStateException("email already confirmed");
         }
 
         LocalDateTime expiredAt = confirmationToken.getExpiresAt();
@@ -69,7 +68,7 @@ public class RegistrationService {
         confirmationTokenService.setConfirmedAt(token);
         userService.enableUser(
                 confirmationToken.getUser().getEmail());
-        return "Email úspěšně ověřen";
+        //return "confirmed";
     }
 
     private String buildEmail(String name, String link) {
@@ -90,7 +89,7 @@ public class RegistrationService {
                 "                  \n" +
                 "                    </td>\n" +
                 "                    <td style=\"font-size:28px;line-height:1.315789474;Margin-top:4px;padding-left:10px\">\n" +
-                "                      <span style=\"font-family:Helvetica,Arial,sans-serif;font-weight:700;color:#ffffff;text-decoration:none;vertical-align:top;display:inline-block\">Ověření emailu</span>\n" +
+                "                      <span style=\"font-family:Helvetica,Arial,sans-serif;font-weight:700;color:#ffffff;text-decoration:none;vertical-align:top;display:inline-block\">Potvrďte svůj email</span>\n" +
                 "                    </td>\n" +
                 "                  </tr>\n" +
                 "                </tbody></table>\n" +
@@ -128,7 +127,7 @@ public class RegistrationService {
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
                 "      <td style=\"font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:1.315789474;max-width:560px\">\n" +
                 "        \n" +
-                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Ahoj " + name + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> Děkujeme za registraci. Pro ověření emailu klikni prosím na následující odkaz: </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"" + link + "\">Ověřit email</a> </p></blockquote>\n Platnost odkazu vyprší 15 minut od přijetí emailu. <p>Hezký den</p>" +
+                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Ahoj " + name + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> Děkujeme za registraci. Pro aktivaci účtu klikněte prosím na následující odkaz: </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"" + link + "\">Aktivovat</a> </p></blockquote>\n Platnost odkazu vyprší za 15 minut. <p>S pozdravem tým galerie papírových modelů</p>" +
                 "        \n" +
                 "      </td>\n" +
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
@@ -141,4 +140,5 @@ public class RegistrationService {
                 "</div></div>";
     }
 }
+
 

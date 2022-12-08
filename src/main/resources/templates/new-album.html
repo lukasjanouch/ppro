@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Galerie modelů F1 | Nové album</title>
+    <link href = "/images/favicon.png" rel = "icon" type = "image/png" >
+    <link href = "/css/newalbum.css" rel = "stylesheet">
+</head>
+<body>
+<header>
+  <div>
+    <form class="form-signin" method="get" action="/logout"><!--když máme nepovoleno crsf() tak method="get", jinak "post"-->
+      <button class="log-out-button" type="submit">Odhlásit se</button>
+    </form>
+      <img src="/images/f1logo.png" alt="Logo">
+    <nav>
+      <ul>
+        <li><a th:href="@{/moje-galerie}" >Moje galerie</a></li>
+        <li><a th:href="@{/nove-album}" class="active">Nové album</a></li>
+        <li><a th:href="@{/muj-profil}" >Můj profil</a></li>
+      </ul>
+      <select>
+        <option value="" selected="selected">Select</option>
+
+        <option value="/myprofile">Moje galerie</option>
+        <option value="/newalbum">Nové album</option>
+        <option value="/myprofile">Můj profil</option>
+      </select>
+    </nav>
+  </div>
+</header>
+<h2>Nové album</h2>
+<section>
+    <form action="#" th:action="@{/addAlbum}" th:object="${album}" method="post"
+          enctype="multipart/form-data">
+        <label>Název alba:</label>
+            <input type="text" th:field="*{name}" />
+        <label>Vydavatel:</label>
+            <input type="text" th:field="*{publisher}" />
+        <label>Autor:</label>
+            <input type="text" th:field="*{author}" />
+        <label>Měřítko:</label>
+            <input type="text" th:field="*{scale}" />
+        <label>Foto:</label>
+            <input type="file" th:field="*{image}"/>
+        <button class="add-album-button" type="submit">Přidat album</button>
+    </form>
+</section>
+<div>
+    <p th:text="${message}">Error</p>
+</div>
+
+</body>
+</html>

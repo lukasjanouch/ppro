@@ -1,5 +1,6 @@
 package cz.uhk.ppro.registration.token;
 
+import cz.uhk.ppro.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -21,6 +22,7 @@ public interface ConfirmationTokenRepository extends JpaRepository<ConfirmationT
     @Query("UPDATE ConfirmationToken c " +
             "SET c.confirmedAt = ?2 " +
             "WHERE c.token = ?1")
-    int updateConfirmedAt(String token,
-                          LocalDateTime confirmedAt);
+    void updateConfirmedAt(String token,
+                          LocalDateTime confirmedAt);//bylo int
+    ConfirmationToken deleteConfirmationTokenByUser(User user);
 }

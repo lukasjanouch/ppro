@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Galerie F1 | Můj profil</title>
+    <link href = "/images/favicon.png" rel = "icon" type = "image/png" >
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+<body>
+<header>
+    <div>
+        <form class="form-signin" method="post" action="/logout"><!--když máme nepovoleno crsf() tak method="get", jinak "post"-->
+            <button class="log-out-button" type="submit">Odhlásit se</button>
+        </form>
+        <img src="/images/f1logo.png" alt="Logo">
+        <nav>
+
+            <ul>
+                <li>
+                    <a th:href="@{/moje-galerie}" >Moje galerie</a>
+                    <a th:href="@{/nove-album}">Nové album</a>
+                    <a th:href="@{/muj-profil}" class="active">Můj profil</a></li>
+            </ul>
+            <select>
+                <option value="" selected="selected">Select</option>
+
+                <option value="/myprofile">Moje galerie</option>
+                <option value="/newalbum">Nové album</option>
+                <option value="/myprofile">Můj profil</option>
+            </select>
+        </nav>
+    </div>
+</header>
+<h2>Můj profil</h2>
+<img alt="Alpha Tauri AT03" src="/images/alpha-tauri2022.jpg"/>
+</body>
+</html>
