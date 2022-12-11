@@ -11,6 +11,10 @@
 <header>
     <div>
         <form class="form-signin" method="post" action="/logout"><!--když máme nepovoleno crsf() tak method="get", jinak "post"-->
+            <input
+                    type="hidden"
+                    th:name="${_csrf.parameterName}"
+                    th:value="${_csrf.token}"/>
             <button class="log-out-button" type="submit">Odhlásit se</button>
         </form>
         <img src="/images/f1logo.png" alt="Logo">

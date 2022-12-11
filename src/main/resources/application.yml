@@ -3,6 +3,7 @@ server:
     include-message: always
     include-binding-errors: always
 
+
 spring:
   datasource:
     password: 2172/fomo
@@ -23,6 +24,12 @@ spring:
       schema: classpath:org/springframework/session/jdbc/schema-@@platform@@.sql
       initialize-schema: embedded
       table-name: SPRING_SESSION
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 50MB
+      max-request-size: 75MB
 
   mail:
     host: localhost

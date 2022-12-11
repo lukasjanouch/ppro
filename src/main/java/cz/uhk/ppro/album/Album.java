@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.mail.Multipart;
 import javax.persistence.*;
 import java.awt.*;
+import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -16,14 +17,14 @@ import java.util.List;
 @Entity
 public class Album {
     @SequenceGenerator(
-            name = "user_sequence",
-            sequenceName = "user_sequence",
+            name = "album_sequence",
+            sequenceName = "album_sequence",
             allocationSize = 1
     )
     @Id //z javax.persistence
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "user_sequence"
+            generator = "album_sequence"
     )
     //atributy, které není potřeba ukládat do db označujeme @Transient
     //např. věk, protože lze vypočítat z data narození
@@ -37,5 +38,9 @@ public class Album {
     @Lob
     @Column(length = Integer.MAX_VALUE)
     private byte[] image;
+
+
+
+
 }
 

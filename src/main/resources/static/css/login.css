@@ -1,0 +1,27 @@
+@import "fontcustomf1.css";
+html{
+    height: 100%;
+}
+h2{
+    font-family: formula1bold, fantasy;
+}
+img, p, a {
+    font-family: formula1regular, sans-serif;
+}
+button{
+    font-family: formula1bold, fantasy;
+}
+.container{
+    height: 204px;
+    margin-top: 15%;
+}
+.sr-only{
+    display: none;
+}
+body{
+    height: inherit;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 0 0 0;
+}

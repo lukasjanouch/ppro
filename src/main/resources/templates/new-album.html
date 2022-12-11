@@ -10,7 +10,11 @@
 <header>
   <div>
     <form class="form-signin" method="get" action="/logout"><!--když máme nepovoleno crsf() tak method="get", jinak "post"-->
-      <button class="log-out-button" type="submit">Odhlásit se</button>
+        <input
+                type="hidden"
+                th:name="${_csrf.parameterName}"
+                th:value="${_csrf.token}"/>
+        <button class="log-out-button" type="submit">Odhlásit se</button>
     </form>
       <img src="/images/f1logo.png" alt="Logo">
     <nav>
@@ -44,6 +48,10 @@
         <label>Foto:</label>
             <input type="file" th:field="*{image}"/>
         <button class="add-album-button" type="submit">Přidat album</button>
+        <input
+                type="hidden"
+                th:name="${_csrf.parameterName}"
+                th:value="${_csrf.token}"/>
     </form>
 </section>
 <div>
