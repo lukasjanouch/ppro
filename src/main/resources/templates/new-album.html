@@ -5,6 +5,7 @@
     <title>Galerie modelů F1 | Nové album</title>
     <link href = "/images/favicon.png" rel = "icon" type = "image/png" >
     <link href = "/css/newalbum.css" rel = "stylesheet">
+    <script src="/js/add-image-input.js"></script>
 </head>
 <body>
 <header>
@@ -36,7 +37,8 @@
 <h2>Nové album</h2>
 <section>
     <form action="#" th:action="@{/addAlbum}" th:object="${album}" method="post"
-          enctype="multipart/form-data">
+          enctype="multipart/form-data" >
+        <div id="add-album-div">
         <label>Název alba:</label>
             <input type="text" th:field="*{name}" />
         <label>Vydavatel:</label>
@@ -47,6 +49,8 @@
             <input type="text" th:field="*{scale}" />
         <label>Foto:</label>
             <input type="file" th:field="*{image}"/>
+        </div>
+        <button class="add-album-button" type="button" onclick="addInputLine()">Přidat další fotku</button>
         <button class="add-album-button" type="submit">Přidat album</button>
         <input
                 type="hidden"
