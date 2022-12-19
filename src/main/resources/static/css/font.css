@@ -1,3 +1,4 @@
+
 nav select {
     display: none;
 }
@@ -41,7 +42,7 @@ h2 {
     font-family: formula1wide, fantasy;
     text-align: center;
 }
-img{
+.img-logo{
     position: absolute;
     height: 58px;
     background-color: red;
@@ -50,4 +51,5 @@ img{
 label{
     font-family: formula1regular, fantasy;
 }
+
 

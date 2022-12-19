@@ -20,10 +20,10 @@ public class TemplateController {
         return "login";//stejný název jako v templates
     }
 
-    @GetMapping("moje-galerie")
+    /*@GetMapping("moje-galerie")
     public String getGalleryView(){
         return "my-gallery";//stejný název jako v templates
-    }
+    }*/
 
     @GetMapping("muj-profil")
     public String getProfileView(){

@@ -5,7 +5,7 @@
     <title>Galerie modelů F1 | Nové album</title>
     <link href = "/images/favicon.png" rel = "icon" type = "image/png" >
     <link href = "/css/newalbum.css" rel = "stylesheet">
-    <script src="/js/add-image-input.js"></script>
+    <!--<script src="/js/add-image-input.js"></script>-->
 </head>
 <body>
 <header>
@@ -17,7 +17,7 @@
                 th:value="${_csrf.token}"/>
         <button class="log-out-button" type="submit">Odhlásit se</button>
     </form>
-      <img src="/images/f1logo.png" alt="Logo">
+      <img class="img-logo" src="/images/f1logo.png" alt="Logo">
     <nav>
       <ul>
         <li><a th:href="@{/moje-galerie}" >Moje galerie</a></li>
@@ -36,8 +36,11 @@
 </header>
 <h2>Nové album</h2>
 <section>
-    <form action="#" th:action="@{/addAlbum}" th:object="${album}" method="post"
-          enctype="multipart/form-data" >
+    <form action="#" th:action="@{/addAlbum}" th:object="${album}" method="post"><!--enctype="multipart/form-data"-->
+        <input
+                type="hidden"
+                th:name="${_csrf.parameterName}"
+                th:value="${_csrf.token}"/>
         <div id="add-album-div">
         <label>Název alba:</label>
             <input type="text" th:field="*{name}" />
@@ -47,15 +50,14 @@
             <input type="text" th:field="*{author}" />
         <label>Měřítko:</label>
             <input type="text" th:field="*{scale}" />
-        <label>Foto:</label>
-            <input type="file" th:field="*{image}"/>
+        <!--<label>Foto:</label>
+            <div th:each="image, itemStat : *{images}">
+                <input class="img-input" type="file" th:field="*{images[__${itemStat.index}__].image}"/>
+            </div>-->
         </div>
-        <button class="add-album-button" type="button" onclick="addInputLine()">Přidat další fotku</button>
+        <!--<button class="add-album-button" type="button" onclick="addInputLine()">Přidat další fotku</button>-->
         <button class="add-album-button" type="submit">Přidat album</button>
-        <input
-                type="hidden"
-                th:name="${_csrf.parameterName}"
-                th:value="${_csrf.token}"/>
+
     </form>
 </section>
 <div>

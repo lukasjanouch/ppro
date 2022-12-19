@@ -19,7 +19,9 @@ public class AlbumService {
         return albumRepository.findAll();
     }
 
-    public Optional<Album> getImageById(Long id) {
+    public Optional<Album> getAlbumById(Long id) {
         return albumRepository.findById(id);
     }
+
+
 }

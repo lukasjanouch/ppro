@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <title>Galerie F1 | Můj profil</title>
     <link href = "/images/favicon.png" rel = "icon" type = "image/png" >
-    <meta name="_csrf" th:content="${_csrf.token}"/>
-    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link href = "/css/font.css" rel = "stylesheet">
 </head>
 <body>
 <header>
@@ -17,7 +16,7 @@
                     th:value="${_csrf.token}"/>
             <button class="log-out-button" type="submit">Odhlásit se</button>
         </form>
-        <img src="/images/f1logo.png" alt="Logo">
+        <img class="img-logo" src="/images/f1logo.png" alt="Logo">
         <nav>
 
             <ul>

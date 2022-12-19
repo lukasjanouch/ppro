@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.ElementCollection;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -21,6 +22,10 @@ public class AlbumDto {
     private String publisher;
     private String author;
     private String scale;
-
-    private MultipartFile image;
+    //private MultipartFile image;
+    private List<ImageDto> images = new ArrayList<>();
+    //private List<ImageDto> images;
+    public void addImage(ImageDto image){
+        this.images.add(image);
+    }
 }

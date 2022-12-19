@@ -5,18 +5,26 @@
     <title>Galerie modelů F1</title>
     <link href = "/images/favicon.png" rel = "icon" type = "image/png" >
     <link href = "/css/general.css" rel = "stylesheet">
+    <link href = "/css/font.css" rel = "stylesheet">
 </head>
 <body>
     <header>
-        <div>
-            <a th:href="@{/login}">Přihlásit se</a>
-            <a th:href="@{/registrace}">Registrovat se</a>
-            <nav>
-                <ul>
-                    <li></li>
-                </ul>
-            </nav>
-        </div>
+        <img class="img-logo" src="/images/f1logo.png" alt="Logo">
+        <nav>
+            <ul>
+                <li>
+                    <a th:href="@{/}" class="active">Domů</a>
+                    <a th:href="@{/login}" >Přihlásit se</a>
+                    <a th:href="@{/registrace}">Registrace</a></li>
+            </ul>
+            <select>
+                <option value="" selected="selected">Select</option>
+
+                <option value="/">Domů</option>
+                <option value="/login">Přihlásit se</option>
+                <option value="/registrace">Registrace</option>
+            </select>
+        </nav>
     </header>
     <h1>Galerie modelů F1</h1>
     <section>
@@ -25,7 +33,10 @@
             <p th:text="${album.author}">Autor</p>
             <p th:text="${album.publisher}">Vydavatel</p>
             <p th:text="${album.scale}">Měřítko</p>
-            <img th:src="@{${'/image/display/'+ album.id}}" width=300 alt="F1 model"/>
+            <!--<img th:src="@{${'/image/display/'+ album.id}}" width=300 alt="F1 model"/>-->
+            <div th:if="${album.images} != null" th:each="image : ${album.images}">
+                <img th:src="@{${'/image/display/'+ image.id}}" width=300 alt="F1 model"/>
+            </div>
         </div>
     </section>
 
