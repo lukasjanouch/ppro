@@ -1,5 +1,6 @@
 package cz.uhk.ppro.user;
 
+import cz.uhk.ppro.album.Album;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,10 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 @Getter
 @Setter
@@ -40,6 +38,8 @@ public class User implements UserDetails {
     private String password;
     //@ElementCollection
     //private Set<? extends GrantedAuthority> grantedAuthorities;
+    @OneToMany(mappedBy = "user")
+    private List<Album> albums;
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
     private Boolean locked = false;

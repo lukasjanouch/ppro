@@ -1,9 +1,10 @@
 package cz.uhk.ppro.album;
 
+import cz.uhk.ppro.album.image.Image;
+import cz.uhk.ppro.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.web.bind.annotation.Mapping;
 
 import javax.persistence.*;
 import java.util.List;
@@ -26,6 +27,9 @@ public class Album {
     //atributy, které není potřeba ukládat do db označujeme @Transient
     //např. věk, protože lze vypočítat z data narození
     private Long id;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     private String name;
     private String publisher;
     private String author;
@@ -34,6 +38,7 @@ public class Album {
     @OneToMany(mappedBy = "album")
     private List<Image> images;
     //private byte[] image;
+    private int likes;
 
 
 }

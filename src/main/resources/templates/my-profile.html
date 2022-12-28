@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title>Galerie F1 | Můj profil</title>
     <link href = "/images/favicon.png" rel = "icon" type = "image/png" >
-    <link href = "/css/font.css" rel = "stylesheet">
+    <link href = "/css/general.css" rel = "stylesheet">
+    <link href = "/css/my-gallery.css" rel = "stylesheet">
 </head>
 <body>
-<header>
+
     <div>
         <form class="form-signin" method="post" action="/logout"><!--když máme nepovoleno crsf() tak method="get", jinak "post"-->
             <input
@@ -16,26 +17,25 @@
                     th:value="${_csrf.token}"/>
             <button class="log-out-button" type="submit">Odhlásit se</button>
         </form>
-        <img class="img-logo" src="/images/f1logo.png" alt="Logo">
         <nav>
-
             <ul>
-                <li>
-                    <a th:href="@{/moje-galerie}" >Moje galerie</a>
-                    <a th:href="@{/nove-album}">Nové album</a>
-                    <a th:href="@{/muj-profil}" class="active">Můj profil</a></li>
+                <li><a class="a-img" th:href="@{/}"><img class="img-logo" src="/images/f1logo.png" alt="Logo"></a></li>
+                <li><a class="a-menu" th:href="@{/}" >Domů</a></li>
+                <li><a class="a-menu" th:href="@{/moje-galerie}" >Moje galerie</a></li>
+                <li><a class="a-menu" th:href="@{/nove-album}" >Nové album</a></li>
+                <li><a th:href="@{/muj-profil}" class="active">Můj profil</a></li>
             </ul>
             <select>
                 <option value="" selected="selected">Select</option>
 
-                <option value="/myprofile">Moje galerie</option>
-                <option value="/newalbum">Nové album</option>
-                <option value="/myprofile">Můj profil</option>
+                <option value="/">Moje galerie</option>
+                <option value="/login">Nové album</option>
+                <option value="/registrace">Můj profil</option>
             </select>
         </nav>
     </div>
-</header>
-<h2>Můj profil</h2>
-<img alt="Alpha Tauri AT03" src="/images/alpha-tauri2022.jpg"/>
+    <header>
+        <h2>Můj profil</h2>
+    </header>
 </body>
 </html>

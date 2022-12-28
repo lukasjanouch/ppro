@@ -40,9 +40,9 @@ public class RegistrationController {
     }
 
     @PostMapping("/register")
-    //public String register(@ModelAttribute("user") @Valid UserDto userDto, BindingResult bindingResult, Model model){
-    public String register(UserDto userDto){
-        /*if (bindingResult.hasErrors()){
+    public String register(@ModelAttribute("user") @Valid UserDto userDto, BindingResult bindingResult, Model model){
+    //public String register(UserDto userDto){
+        if (bindingResult.hasErrors()){
             model.addAttribute("registrationForm", userDto);
             System.out.println("ošetření textových polí");
             return "/registration";
@@ -53,7 +53,7 @@ public class RegistrationController {
                 model.addAttribute("message", exception.getMessage());
             System.out.println(exception.getMessage());
             return "/registration";
-        }*/
+        }
         registrationService.register(userDto);
         System.out.println("Provedl se požadavek POST.");
         return "redirect:/";

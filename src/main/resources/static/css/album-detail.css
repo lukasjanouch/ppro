@@ -1,0 +1,25 @@
+section{
+    display: flex;
+    justify-content: space-evenly;
+}
+.img-container{
+    display: flex;
+}
+.img-main{
+    border-radius: 20px;
+}
+.img-others{
+    border-radius: 10px;
+}
+.img-like{
+
+}
+.p-like{
+    margin-left: 10px;
+    margin-top: 0;
+}
+.likes{
+    display: flex;
+    height: 26px;
+    margin-bottom: 10px;
+}

@@ -1,0 +1,21 @@
+
+.a-add-button:hover{
+    background-color: white;
+}
+.img-container{
+    margin-bottom: 0;
+}
+.button-container{
+    display: flex;
+    justify-content: center;
+}
+.add-images-button{
+    font-family: formula1regular, fantasy;
+    border-radius: 8px;
+    border-width: 0;
+    background-color: red;
+    padding: 10px 24px;
+    color: white;
+}
+
+

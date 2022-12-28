@@ -1,11 +1,10 @@
 package cz.uhk.ppro.album;
 
+import cz.uhk.ppro.album.image.ImageDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.ElementCollection;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;

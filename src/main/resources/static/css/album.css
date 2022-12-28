@@ -1,0 +1,30 @@
+.albums-container{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.album-container{
+    border: 2px solid black;
+    border-radius: 25px;
+    width: 333px;
+    margin-bottom: 0.67em;
+}
+.album-container:hover{
+    cursor: pointer;
+    opacity: 0.6; /* css standard */
+    filter: alpha(opacity=60);
+}
+.p-headline{
+    font-family: formula1bold, fantasy;
+    text-align: center;
+}
+.p-info{
+    margin-left: 14px;
+}
+.img-container{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+

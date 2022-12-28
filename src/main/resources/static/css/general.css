@@ -1,10 +1,90 @@
-@import "fontcustomf1.css";
-h1{
-    font-family: formula1bold, fantasy;
+@import "font-custom-f1.css";
+body {
+    margin: 0 0 0 0;
 }
-label, img, p, a {
-    font-family: formula1regular, sans-serif;
+nav select {
+    display: none;
+}
+@media (max-width: 960px) {
+    nav ul     { display: none; }
+    nav select { display: inline-block; }
+}
+.a-menu, .active {
+    font-family: formula1regular, fantasy;
+    float: left;
+    color: black;
+    text-align: center;
+    padding: 20px 20px;
+    text-decoration: none;
+    font-size: 15px;
+}
+.a-img{
+    margin-left: 0;
+    padding: 0 0 0 0;
+}
+.a-img:hover{
+    background-color: white;
+}
+/* Change the color of links on hover */
+.a-menu:hover {
+    background-color: #ffa7a7;
+    color: white;
+}
+/* Add a color to the active/current link */
+.active {
+    background-color: red;
+    text-decoration-line: underline;
+    color: white;
+}
+ul {
+    display: flex;
+    padding-inline-start: 0;
+    margin-top: 0;
+    list-style: none;}
+nav {
+    background-color: white;
+    overflow: hidden;
+    margin-right: auto;
+}
+h1 {
+    font-family: formula1wide, fantasy;
+    text-align: center;
+    margin-block-end: 1.67em
+}
+h2, h3 {
+    font-family: formula1wide, fantasy;
+    text-align: center;
+}
+.img-logo{
+    padding-left: 50px;
+    padding-right: 25px;
+    height: 58px;
+    background-color: red;
+    margin: 0 0 0 0;
+}
+label, img, p{
+    font-family: formula1regular, fantasy;
+}
+.log-out-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    margin-left: 20%;
 }
 button{
-    font-family: formula1bold, fantasy;
+    font-family: formula1regular, fantasy;
+    border-radius: 8px;
+    border-width: 0;
+    background-color: red;
+    padding: 10px 24px;
+    color: white;
 }
+button:hover{
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    border: 2px solid red;
+    padding: 8px 22px
+}
+
+

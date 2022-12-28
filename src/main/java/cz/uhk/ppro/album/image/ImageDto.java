@@ -1,5 +1,6 @@
-package cz.uhk.ppro.album;
+package cz.uhk.ppro.album.image;
 
+import cz.uhk.ppro.album.AlbumDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package cz.uhk.ppro.album;
+package cz.uhk.ppro.album.image;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

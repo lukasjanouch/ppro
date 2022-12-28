@@ -5,47 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Přihlášení - Galerie F1</title>
     <link href = "/images/favicon.png" rel = "icon" type = "image/png" >
-    <link href = "/css/font.css" rel = "stylesheet">
+    <link href = "/css/general.css" rel = "stylesheet">
+    <link href = "/css/form.css" rel = "stylesheet">
 </head>
 <body>
-<img class="img-logo" src="/images/f1logo.png" alt="Logo">
-<nav>
-    <ul>
-        <li>
-            <a th:href="@{/}">Domů</a>
-            <a th:href="@{/login}" class="active">Přihlásit se</a>
-            <a th:href="@{/registrace}">Registrace</a></li>
-    </ul>
-    <select>
-        <option value="" selected="selected">Select</option>
+<header>
+    <nav>
+        <ul>
+            <li><a class="a-img" th:href="@{/}"><img class="img-logo" src="/images/f1logo.png" alt="Logo"></a></li>
+            <li><a class="a-menu" th:href="@{/}" >Domů</a></li>
+            <li><a th:href="@{/login}" class="active">Přihlásit se</a></li>
+            <li><a class="a-menu" th:href="@{/registrace}">Registrace</a></li>
+        </ul>
+        <select>
+            <option value="" selected="selected">Select</option>
 
-        <option value="/">Domů</option>
-        <option value="/login">Přihlásit se</option>
-        <option value="/registrace">Registrace</option>
-    </select>
-</nav>
-<div class="container">
+            <option value="/">Domů</option>
+            <option value="/login">Přihlásit se</option>
+            <option value="/registrace">Registrace</option>
+        </select>
+    </nav>
+</header>
+<section>
     <form method="post" action="/login">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         <h2 class="form-signin-heading">Přihlášení</h2>
-        <p>
-            <label for="username" class="sr-only">Uživatelské jméno</label>
+
+
             <input type="text" id="username" name="username" class="form-control" placeholder="Uživatelské jméno" required autofocus>
-        </p>
-        <p>
-            <label for="password" class="sr-only">Heslo</label>
+
+
             <input type="password" id="password" name="password" class="form-control" placeholder="Heslo" required>
-        </p>
-        <p>
+
             <label>
                 Zůstat přihlášen <input type="checkbox" value="remember-me">
             </label>
-        </p>
+
         <div th:if="${param.error}" class="alert alert-danger">
             Špatné uživatelské jméno nebo heslo
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Přihlásit se</button>
     </form>
-</div>
+</section>
 </body>
 </html>

@@ -4,10 +4,28 @@
   <title>Galerie modelů F1 | Registrace</title>
   <link href = "/images/favicon.png" rel = "icon" type = "image/png" >
   <link href = "/css/general.css" rel = "stylesheet">
+  <link href = "/css/form.css" rel = "stylesheet">
 </head>
 <body>
-<h1>Registrace</h1>
+<header>
+  <nav>
+    <ul>
+      <li><a class="a-img" th:href="@{/}"><img class="img-logo" src="/images/f1logo.png" alt="Logo"></a></li>
+      <li><a class="a-menu" th:href="@{/}" >Domů</a></li>
+      <li><a class="a-menu" th:href="@{/login}" >Přihlásit se</a></li>
+      <li><a th:href="@{/registrace}" class="active">Registrace</a></li>
+    </ul>
+    <select>
+      <option value="" selected="selected">Select</option>
 
+      <option value="/">Domů</option>
+      <option value="/login">Přihlásit se</option>
+      <option value="/registrace">Registrace</option>
+    </select>
+  </nav>
+</header>
+<h2>Registrace</h2>
+<section>
 <form action="/register" th:object="${user}" method="POST">
   <!--nevymazávat, csrf token-->
   <input
@@ -15,34 +33,34 @@
           th:name="${_csrf.parameterName}"
           th:value="${_csrf.token}"/>
   <div>
-    <label>Křestní jméno: </label>
-      <input th:field="*{firstName}"/>
+
+      <input placeholder="Křestní jméno" th:field="*{firstName}"/>
     <p th:each="error: ${#fields.errors('firstName')}"
        th:text="${error}">Validation error</p>
   </div>
   <div>
-    <label>Příjmení: </label>
-    <input th:field="*{lastName}"/>
+
+    <input placeholder="Příjmení" th:field="*{lastName}"/>
     <p th:each="error : ${#fields.errors('lastName')}"
        th:text="${error}">Validation error</p>
   </div>
   <div>
-    <label>Email: </label>
-    <input type="email" th:field="*{email}"/>
+
+    <input placeholder="Email" type="email" th:field="*{email}"/>
     <p th:each="error : ${#fields.errors('email')}"
        th:text="${error}">Validation error</p>
   </div>
   <div>
-    <label>Heslo: </label>
-      <input type="password" th:field="*{password}"/>
+
+      <input placeholder="Heslo" type="password" th:field="*{password}"/>
     <p th:each="error : ${#fields.errors('password')}"
        th:text="${error}">Validation error</p>
     <p th:each="error : ${#fields.errors('matchingPassword')}"
        th:text="${error}">Validation error</p>
   </div>
   <div>
-    <label>Heslo znovu: </label>
-    <input type="password" th:field="*{matchingPassword}"/>
+
+    <input placeholder="Heslo znovu" type="password" th:field="*{matchingPassword}"/>
   </div>
   <button type="submit">Registrovat se</button>
 
@@ -51,6 +69,6 @@
 <div>
   <p th:text="${message}">Uživatel s daným emailem už existuje.</p>
 </div>
-<a th:href="@{/login}">Přihlásit se</a>
+</section>
 </body>
 </html>

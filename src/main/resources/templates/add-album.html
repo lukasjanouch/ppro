@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>Galerie modelů F1 | Nové album</title>
     <link href = "/images/favicon.png" rel = "icon" type = "image/png" >
-    <link href = "/css/newalbum.css" rel = "stylesheet">
+    <link href = "/css/general.css" rel = "stylesheet">
+    <link href = "/css/form.css" rel = "stylesheet">
     <!--<script src="/js/add-image-input.js"></script>-->
 </head>
 <body>
@@ -17,21 +18,22 @@
                 th:value="${_csrf.token}"/>
         <button class="log-out-button" type="submit">Odhlásit se</button>
     </form>
-      <img class="img-logo" src="/images/f1logo.png" alt="Logo">
-    <nav>
-      <ul>
-        <li><a th:href="@{/moje-galerie}" >Moje galerie</a></li>
-        <li><a th:href="@{/nove-album}" class="active">Nové album</a></li>
-        <li><a th:href="@{/muj-profil}" >Můj profil</a></li>
-      </ul>
-      <select>
-        <option value="" selected="selected">Select</option>
+      <nav>
+          <ul>
+              <li><a class="a-img" th:href="@{/}"><img class="img-logo" src="/images/f1logo.png" alt="Logo"></a></li>
+              <li><a class="a-menu" th:href="@{/}" >Domů</a></li>
+              <li><a class="a-menu" th:href="@{/moje-galerie}" >Moje galerie</a></li>
+              <li><a th:href="@{/nove-album}" class="active">Nové album</a></li>
+              <li><a class="a-menu" th:href="@{/muj-profil}" >Můj profil</a></li>
+          </ul>
+          <select>
+              <option value="" selected="selected">Select</option>
 
-        <option value="/myprofile">Moje galerie</option>
-        <option value="/newalbum">Nové album</option>
-        <option value="/myprofile">Můj profil</option>
-      </select>
-    </nav>
+              <option value="/">Moje galerie</option>
+              <option value="/login">Nové album</option>
+              <option value="/registrace">Můj profil</option>
+          </select>
+      </nav>
   </div>
 </header>
 <h2>Nové album</h2>
@@ -41,15 +43,15 @@
                 type="hidden"
                 th:name="${_csrf.parameterName}"
                 th:value="${_csrf.token}"/>
-        <div id="add-album-div">
-        <label>Název alba:</label>
-            <input type="text" th:field="*{name}" />
-        <label>Vydavatel:</label>
-            <input type="text" th:field="*{publisher}" />
-        <label>Autor:</label>
-            <input type="text" th:field="*{author}" />
-        <label>Měřítko:</label>
-            <input type="text" th:field="*{scale}" />
+        <div id="adding-elements-div">
+
+            <input type="text" placeholder="Název alba" th:field="*{name}" />
+
+            <input type="text" placeholder="Vydavatel" th:field="*{publisher}" />
+
+            <input type="text" placeholder="Autor" th:field="*{author}" />
+
+            <input type="text" placeholder="Měřítko" th:field="*{scale}" />
         <!--<label>Foto:</label>
             <div th:each="image, itemStat : *{images}">
                 <input class="img-input" type="file" th:field="*{images[__${itemStat.index}__].image}"/>

@@ -1,4 +1,4 @@
-package cz.uhk.ppro.album;
+package cz.uhk.ppro.album.image;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
