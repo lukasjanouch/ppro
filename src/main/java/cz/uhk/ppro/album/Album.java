@@ -1,6 +1,8 @@
 package cz.uhk.ppro.album;
 
+import cz.uhk.ppro.album.comment.Comment;
 import cz.uhk.ppro.album.image.Image;
+import cz.uhk.ppro.album.like.LikeEntity;
 import cz.uhk.ppro.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,7 +40,10 @@ public class Album {
     @OneToMany(mappedBy = "album")
     private List<Image> images;
     //private byte[] image;
-    private int likes;
+    @OneToMany(mappedBy = "album")
+    private List<Comment> comments;
+    @OneToMany(mappedBy = "album")
+    private List<LikeEntity> likeEntities;
 
 
 }

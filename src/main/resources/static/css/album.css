@@ -1,3 +1,7 @@
+.a-album{
+    text-decoration: none;
+    color: black;
+}
 .albums-container{
     display: flex;
     justify-content: space-around;

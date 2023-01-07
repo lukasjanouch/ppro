@@ -22,7 +22,7 @@ public interface UserRepository
             "SET a.enabled = TRUE WHERE a.email = ?1")
     void enableUser(String email);//bylo int
 
-    User getUserByEmail(String email);
+    Optional<User> getUserByEmail(String email);
 
 
 }

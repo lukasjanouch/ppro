@@ -1,15 +1,19 @@
 package cz.uhk.ppro.controller;
 
 import cz.uhk.ppro.album.*;
+import cz.uhk.ppro.album.comment.Comment;
+import cz.uhk.ppro.album.comment.CommentDto;
+import cz.uhk.ppro.album.comment.CommentRepository;
+import cz.uhk.ppro.album.comment.CommentService;
 import cz.uhk.ppro.album.image.Image;
-import cz.uhk.ppro.album.image.ImageDto;
-import cz.uhk.ppro.album.image.ImageService;
+import cz.uhk.ppro.album.like.LikeEntity;
+import cz.uhk.ppro.album.like.LikeService;
 import cz.uhk.ppro.user.User;
+import cz.uhk.ppro.user.UserRepository;
 import cz.uhk.ppro.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -19,17 +23,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 
 @Controller
 public class AlbumController {
@@ -37,12 +34,22 @@ public class AlbumController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private AlbumService albumService;
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    @Autowired
+    private CommentService commentService;
+    @Autowired
+    private LikeService likeService;
 
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    @Autowired
+    private CommentRepository commentRepository;
+    @Autowired
+    private AlbumRepository albumRepository;
 
 
     @GetMapping("/nove-album")
@@ -103,7 +110,8 @@ public class AlbumController {
             album.setAuthor(albumDto.getAuthor());
             album.setPublisher(albumDto.getPublisher());
             album.setScale(albumDto.getScale());
-            album.setLikes(0);
+            album.setComments(new ArrayList<>());
+            album.setLikeEntities(new ArrayList<>());
             user.getAlbums().add(album);
 
             album.setUser(user);
@@ -137,10 +145,82 @@ public class AlbumController {
     public String viewAlbumDetail(Model model, @PathVariable Long id){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userName = ((UserDetails) auth.getPrincipal()).getUsername();
-        User user = (User) userService.loadUserByUsername(userName);
-        Long loggedUsId = user.getId();
-        model.addAttribute("album", albumService.getAlbumById(id).get());
-        model.addAttribute("loggedUsId", loggedUsId);
+        User loggedUser = (User) userService.loadUserByUsername(userName);
+        Album album = albumService.getAlbumById(id).get();
+        boolean containsLike = false;
+        for (LikeEntity like1 : album.getLikeEntities()) {
+            if (Objects.equals(like1.getUser().getId(), loggedUser.getId())) {
+                containsLike = true;
+                break;
+            }
+        }
+        CommentDto commentDto = new CommentDto();
+        model.addAttribute("album", album);
+        model.addAttribute("loggedUser", loggedUser);
+        model.addAttribute("comment", commentDto);
+        model.addAttribute("containsLike", containsLike);
         return "/album-detail";
+    }
+    @PostMapping("/comment-album/{id}")
+    public String addComment(@PathVariable Long id, @ModelAttribute CommentDto commentDto, @ModelAttribute Album album,
+                             Model model){
+        Comment comment = new Comment();
+        comment.setAlbum(album);
+        comment.setText(commentDto.getText());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userName = ((UserDetails) auth.getPrincipal()).getUsername();
+        User loggedUser = (User) userService.loadUserByUsername(userName);
+        comment.setUser(loggedUser);
+        userRepository.findById(loggedUser.getId()).map(
+                user -> {
+                    user.getComments().add(comment);
+                    return userRepository.save(user);
+                }
+        );
+        albumRepository.findById(id).map(
+                album1 -> {
+                    if(album1.getComments() == null) {
+                        List<Comment> comments = new ArrayList<>();
+                        comments.add(comment);
+                        album1.setComments(comments);
+                    }else{
+                        album1.getComments().add(comment);
+                    }
+                    return albumRepository.save(album1);
+                }
+        );
+        commentService.saveComment(comment);
+        return "redirect:/album/{id}";
+    }
+    @PostMapping("like-album/{id}")
+    public String likeAlbum (@PathVariable Long id, Model model) {
+        Album album = albumService.getAlbumById(id).get();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userName = ((UserDetails) auth.getPrincipal()).getUsername();
+        User loggedUser = (User) userService.loadUserByUsername(userName);
+        LikeEntity likeEntity = new LikeEntity();
+        likeEntity.setUser(loggedUser);
+        likeEntity.setAlbum(album);
+        List<LikeEntity> likes = new ArrayList<>();
+        if (likeService.getAllAlbumsLikes(album).isPresent()) {
+            likes = likeService.getAllAlbumsLikes(album).get();
+        }
+        boolean containsLike = false;
+        LikeEntity like = new LikeEntity();
+        for (LikeEntity like1 : likes) {
+            if (Objects.equals(like1.getUser().getId(), loggedUser.getId())) {
+                containsLike = true;
+                like = like1;
+                break;
+            }
+        }
+        if (album.getLikeEntities().size() == 0) {
+            likeService.saveLike(likeEntity);
+        } else if (!containsLike) {
+            likeService.saveLike(likeEntity);
+        } else {
+            likeService.deleteLike(like.getId());
+        }
+        return "redirect:/album/{id}";
     }
 }

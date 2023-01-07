@@ -1,6 +1,8 @@
 package cz.uhk.ppro.user;
 
 import cz.uhk.ppro.album.Album;
+import cz.uhk.ppro.album.like.LikeEntity;
+import cz.uhk.ppro.album.comment.Comment;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -40,6 +42,10 @@ public class User implements UserDetails {
     //private Set<? extends GrantedAuthority> grantedAuthorities;
     @OneToMany(mappedBy = "user")
     private List<Album> albums;
+    @OneToMany(mappedBy = "user")
+    private List<Comment> comments;
+    @OneToMany(mappedBy = "user")
+    private List<LikeEntity> likeEntities;
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
     private Boolean locked = false;
