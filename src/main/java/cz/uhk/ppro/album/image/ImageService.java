@@ -22,4 +22,8 @@ public class ImageService {
     public Optional<Image> getImageById(Long id) {
         return imageRepository.findById(id);
     }
+
+    public void deleteImageById(Long id){
+        imageRepository.deleteById(id);
+    }
 }

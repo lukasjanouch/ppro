@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -14,7 +15,17 @@ import java.util.UUID;
 public interface UserRepository
         extends JpaRepository<User, Long> {//typ id usera
 
+    List<User> findAllByOrderByUsername();
+
     Optional<User> findByEmail(String email);//není potřeba JPQL (Java Persistence...) dotaz
+
+    Optional<User> findByUsername(String username);
+
+    @Override
+    Optional<User> findById(Long id);
+
+    @Override
+    void deleteById(Long id);
 
     @Transactional
     @Modifying
@@ -22,7 +33,6 @@ public interface UserRepository
             "SET a.enabled = TRUE WHERE a.email = ?1")
     void enableUser(String email);//bylo int
 
-    Optional<User> getUserByEmail(String email);
-
+    Optional<User> findByResetPasswordToken(String token);
 
 }

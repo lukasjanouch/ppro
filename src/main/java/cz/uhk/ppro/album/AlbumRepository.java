@@ -10,6 +10,11 @@ import java.util.List;
 @Repository
 @Transactional(readOnly = true)
 public interface AlbumRepository extends JpaRepository<Album, Long> {
-    List<Album> getAlbumsByUser_Id(Long id);
+    List<Album> findAlbumsByOrderByName();
 
+    List<Album> findAlbumsByUser_IdOrderByName(Long id);
+
+
+
+    void deleteAlbumById(Long id);
 }

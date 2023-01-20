@@ -138,5 +138,12 @@ public class ImageController {
             response.getOutputStream().close();
         }
     }
+    @GetMapping("/delete-img")
+    public String deleteImg(@RequestParam Long id ){
+        Image image =  imageService.getImageById(id).get();
+        Long albumId = image.getAlbum().getId();
+        imageService.deleteImageById(id);
+        return "redirect:/album/" + albumId;
+    }
 
 }

@@ -34,25 +34,19 @@
           th:value="${_csrf.token}"/>
   <div>
 
-      <input placeholder="Křestní jméno" th:field="*{firstName}"/>
-    <p th:each="error: ${#fields.errors('firstName')}"
+      <input class="input-text" placeholder="Uživatelské jméno" th:field="*{username}"/>
+    <p th:each="error: ${#fields.errors('username')}"
        th:text="${error}">Validation error</p>
   </div>
   <div>
 
-    <input placeholder="Příjmení" th:field="*{lastName}"/>
-    <p th:each="error : ${#fields.errors('lastName')}"
-       th:text="${error}">Validation error</p>
-  </div>
-  <div>
-
-    <input placeholder="Email" type="email" th:field="*{email}"/>
+    <input class="input-text" placeholder="Email" type="email" th:field="*{email}"/>
     <p th:each="error : ${#fields.errors('email')}"
        th:text="${error}">Validation error</p>
   </div>
   <div>
 
-      <input placeholder="Heslo" type="password" th:field="*{password}"/>
+      <input class="input-text" placeholder="Heslo" type="password" th:field="*{password}"/>
     <p th:each="error : ${#fields.errors('password')}"
        th:text="${error}">Validation error</p>
     <p th:each="error : ${#fields.errors('matchingPassword')}"
@@ -60,15 +54,15 @@
   </div>
   <div>
 
-    <input placeholder="Heslo znovu" type="password" th:field="*{matchingPassword}"/>
+    <input class="input-text" placeholder="Heslo znovu" type="password" th:field="*{matchingPassword}"/>
   </div>
   <button type="submit">Registrovat se</button>
-
+  <div class="div-message">
+    <p th:text="${message}">Uživatel s daným emailem nebo uživatelským jménem už existuje.</p>
+  </div>
 </form>
 
-<div>
-  <p th:text="${message}">Uživatel s daným emailem už existuje.</p>
-</div>
 </section>
+
 </body>
 </html>

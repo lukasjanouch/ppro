@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html xmlns:th="http://www.thymeleaf.org" lang="en" >
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,26 +26,29 @@
         </select>
     </nav>
 </header>
-<section>
+<section id="section-login">
     <form method="post" action="/login">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         <h2 class="form-signin-heading">Přihlášení</h2>
 
 
-            <input type="text" id="username" name="username" class="form-control" placeholder="Uživatelské jméno" required autofocus>
+            <input class="input-text" type="text" id="username" name="username" placeholder="Uživatelské jméno" required autofocus>
 
 
-            <input type="password" id="password" name="password" class="form-control" placeholder="Heslo" required>
+            <input class="input-text" type="password" id="password" name="password" placeholder="Heslo" required>
 
             <label>
                 Zůstat přihlášen <input type="checkbox" value="remember-me">
             </label>
 
-        <div th:if="${param.error}" class="alert alert-danger">
+        <div th:if="${param.error}" class="error-message">
             Špatné uživatelské jméno nebo heslo
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Přihlásit se</button>
+        <button class="btn-main" type="submit">Přihlásit se</button>
     </form>
+
+    <a class="a-forgot-password" th:href="@{/forgot_password}">Zapomněl/a jste heslo?</a>
+
 </section>
 </body>
 </html>

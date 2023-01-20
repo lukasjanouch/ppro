@@ -1,5 +1,6 @@
 package cz.uhk.ppro.registration.token;
 
+import cz.uhk.ppro.user.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,4 +25,6 @@ public class ConfirmationTokenService {
         confirmationTokenRepository.updateConfirmedAt(
                 token, LocalDateTime.now());
     }
+
+    public void deleteConfirmationToken(Long userId){ confirmationTokenRepository.deleteConfirmationTokenByUserId(userId);}
 }

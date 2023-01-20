@@ -1,0 +1,37 @@
+.section-profile{
+    display: flex;
+    justify-content: center;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.input-text{
+    font-family: formula1regular, fantasy;
+}
+#input-email{
+    margin-top: 30px;
+}
+#input-password-again{
+    margin-top: 15px;
+}
+.p-alert{
+    text-align: center;
+    color: red;
+}
+.div-message{
+    display: flex;
+    justify-content: center;
+}
+#btn-change-username{
+    margin-top: 15px;
+}
+#btn-change-password{
+    margin-top: 15px;
+}
+#div-change-password{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

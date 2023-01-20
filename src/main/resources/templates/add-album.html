@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Galerie modelů F1 | Nové album</title>
@@ -25,6 +25,7 @@
               <li><a class="a-menu" th:href="@{/moje-galerie}" >Moje galerie</a></li>
               <li><a th:href="@{/nove-album}" class="active">Nové album</a></li>
               <li><a class="a-menu" th:href="@{/muj-profil}" >Můj profil</a></li>
+              <li sec:authorize="hasAuthority('ROLE_ADMIN')"><a class="a-menu" th:href="@{/uzivatele}" >Uživatelé</a></li>
           </ul>
           <select>
               <option value="" selected="selected">Select</option>
@@ -34,6 +35,7 @@
               <option value="/registrace">Můj profil</option>
           </select>
       </nav>
+
   </div>
 </header>
 <h2>Nové album</h2>
@@ -45,13 +47,13 @@
                 th:value="${_csrf.token}"/>
         <div id="adding-elements-div">
 
-            <input type="text" placeholder="Název alba" th:field="*{name}" />
+            <input class="input-text" type="text" placeholder="Název alba" th:field="*{name}" />
 
-            <input type="text" placeholder="Vydavatel" th:field="*{publisher}" />
+            <input class="input-text" type="text" placeholder="Vydavatel" th:field="*{publisher}" />
 
-            <input type="text" placeholder="Autor" th:field="*{author}" />
+            <input class="input-text" type="text" placeholder="Autor" th:field="*{author}" />
 
-            <input type="text" placeholder="Měřítko" th:field="*{scale}" />
+            <input class="input-text" type="text" placeholder="Měřítko" th:field="*{scale}" />
         <!--<label>Foto:</label>
             <div th:each="image, itemStat : *{images}">
                 <input class="img-input" type="file" th:field="*{images[__${itemStat.index}__].image}"/>

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Galerie F1 | Můj profil</title>
     <link href = "/images/favicon.png" rel = "icon" type = "image/png" >
     <link href = "/css/general.css" rel = "stylesheet">
-    <link href = "/css/my-gallery.css" rel = "stylesheet">
+    <link href = "/css/my-profile.css" rel = "stylesheet">
+    <script type="text/javascript" src="/js/change-main-img.js"></script>
 </head>
 <body>
 
@@ -24,10 +25,10 @@
                 <li><a class="a-menu" th:href="@{/moje-galerie}" >Moje galerie</a></li>
                 <li><a class="a-menu" th:href="@{/nove-album}" >Nové album</a></li>
                 <li><a th:href="@{/muj-profil}" class="active">Můj profil</a></li>
+                <li sec:authorize="hasAuthority('ROLE_ADMIN')"><a class="a-menu" th:href="@{/uzivatele}" >Uživatelé</a></li>
             </ul>
             <select>
                 <option value="" selected="selected">Select</option>
-
                 <option value="/">Moje galerie</option>
                 <option value="/login">Nové album</option>
                 <option value="/registrace">Můj profil</option>
@@ -37,5 +38,89 @@
     <header>
         <h2>Můj profil</h2>
     </header>
+    <section class="section-profile">
+    <div class="profile-info">
+
+
+        <form th:action="@{/change-username/{id}(id=${loggedUser.id})}" th:object="${userUsername}" method="POST">
+            <input name="_method" type="hidden" value="PUT" />
+            <!--nevymazávat, csrf token-->
+            <input
+                    type="hidden"
+                    th:name="${_csrf.parameterName}"
+                    th:value="${_csrf.token}"/>
+            <div>
+                <!--Uživatelské jméno: <p sec:authentication="name">Bob</p>-->
+                <label >
+                   Uživatelské jméno: <input class="input-text" th:placeholder="${loggedUser.username}" th:field="*{username}"/>
+                </label>
+                <p th:each="error: ${#fields.errors('username')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+            <button th:id="btn-change-username" type="submit">Změnit uživatelské jméno</button>
+            <div th:if="${message} != null" class="div-message">
+                <p class="p-alert" th:text="${message}">Uživatel s daným uživatelským jménem už existuje.</p>
+            </div>
+            <div th:if="${usernameMess} != null" class="div-message" >
+                <p class="p-alert" th:text="${usernameMess}">Uživatelské jméno bylo úspěšně změněno.</p>
+            </div>
+
+        </form>
+
+        <form th:action="@{/change-email/{id}(id=${loggedUser.id})}" th:object="${userEmail}" method="POST">
+            <input name="_method" type="hidden" value="PUT" />
+            <!--nevymazávat, csrf token-->
+            <input
+                    type="hidden"
+                    th:name="${_csrf.parameterName}"
+                    th:value="${_csrf.token}"/>
+            <div>
+
+                <label >
+                    Email: <input th:id="input-email" class="input-text" type="email" th:placeholder="${loggedUser.getEmail()}" th:field="*{email}"/>
+                </label>
+                <p th:each="error: ${#fields.errors('email')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+            <p class="p-alert">(Po změně emailu bude nutné se opět přhlásit.)</p>
+            <button type="submit">Změnit email</button>
+            <div th:if="${emailMess} != null" class="div-message">
+                <p class="p-alert" th:text="${emailMess}">Email byl úspěšně změněn.</p>
+            </div>
+        </form>
+        <div  class="div-message">
+            <p class="p-alert" th:text="${confirmMessage}">Potvrzovací email byl odeslán.</p>
+        </div>
+        <!----ZMĚNA HESLA---->
+        <form th:action="@{/change-password/{id}(id=${loggedUser.id})}" th:object="${userPassword}" method="POST">
+            <input name="_method" type="hidden" value="PUT" />
+            <!--nevymazávat, csrf token-->
+            <input
+                    type="hidden"
+                    th:name="${_csrf.parameterName}"
+                    th:value="${_csrf.token}"/>
+            <div id="div-change-password">
+                <label >
+                    <input class="input-text" placeholder="Nové heslo" type="password" th:field="*{password}"/>
+                </label>
+                <p class="p-alert" th:each="error: ${#fields.errors('password')}"
+                   th:text="${error}">Validation error</p>
+                <label >
+                    <input id="input-password-again" class="input-text" placeholder="Heslo znovu" type="password" th:field="*{matchingPassword}"/>
+                </label>
+                <p class="p-alert" th:each="error: ${#fields.errors('matchingPassword')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+            <!--<p class="p-alert">(Po změně hesla bude nutné se opět přhlásit.)</p>-->
+            <button id="btn-change-password" type="submit">Změnit heslo</button>
+        </form>
+        <div class="div-message">
+            <p class="p-alert" th:text="${passwordMess}">Heslo bylo úspěšně změněno.</p>
+        </div>
+
+        <p class="p-info" th:text="${'Počet alb: ' + loggedUser.getAlbums().size()}">Počet alb:</p>
+        <p class="p-info" th:text="${'Počet fotek: ' + imgsCount}">Počet fotek:</p>
+    </div>
+    </section>
 </body>
 </html>

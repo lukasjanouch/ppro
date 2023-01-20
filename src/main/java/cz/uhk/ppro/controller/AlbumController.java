@@ -40,16 +40,13 @@ public class AlbumController {
     @Autowired
     private AlbumService albumService;
 
-    @Autowired
-    private CommentService commentService;
+
     @Autowired
     private LikeService likeService;
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-    @Autowired
-    private CommentRepository commentRepository;
-    @Autowired
-    private AlbumRepository albumRepository;
+
+
 
 
     @GetMapping("/nove-album")
@@ -127,13 +124,19 @@ public class AlbumController {
         }
     }
 
-
-
     @GetMapping("moje-galerie")//albumy přihlášeného uživatele
     public String showUsersAlbums(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.isAuthenticated()) {
+            //String userName = ((UserDetails) auth.getPrincipal()).getUsername();
+            String userName = auth.getName();
+            User loggedUser = (User) userService.loadUserByUsername(userName);
+            model.addAttribute("loggedUser", loggedUser);
+        }
         model.addAttribute("albumList", albumService.getAllLogedInUserAlbums());
         return "/my-gallery";
     }
+
     @GetMapping("/")//všechny albumy
     public String showAllAlbums(Model model) {
         model.addAttribute("albumList", albumService.getAllActiveAlbums());
@@ -142,9 +145,9 @@ public class AlbumController {
     }
 
     @GetMapping("/album/{id}")
-    public String viewAlbumDetail(Model model, @PathVariable Long id){
+    public String viewAlbumDetail(Model model, @PathVariable Long id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String userName = ((UserDetails) auth.getPrincipal()).getUsername();
+        String userName = auth.getName();
         User loggedUser = (User) userService.loadUserByUsername(userName);
         Album album = albumService.getAlbumById(id).get();
         boolean containsLike = false;
@@ -154,46 +157,36 @@ public class AlbumController {
                 break;
             }
         }
-        CommentDto commentDto = new CommentDto();
         model.addAttribute("album", album);
         model.addAttribute("loggedUser", loggedUser);
-        model.addAttribute("comment", commentDto);
         model.addAttribute("containsLike", containsLike);
+
+        CommentDto commentDto = new CommentDto();
+        model.addAttribute("comment", commentDto);
         return "/album-detail";
     }
-    @PostMapping("/comment-album/{id}")
-    public String addComment(@PathVariable Long id, @ModelAttribute CommentDto commentDto, @ModelAttribute Album album,
-                             Model model){
-        Comment comment = new Comment();
-        comment.setAlbum(album);
-        comment.setText(commentDto.getText());
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String userName = ((UserDetails) auth.getPrincipal()).getUsername();
-        User loggedUser = (User) userService.loadUserByUsername(userName);
-        comment.setUser(loggedUser);
-        userRepository.findById(loggedUser.getId()).map(
-                user -> {
-                    user.getComments().add(comment);
-                    return userRepository.save(user);
-                }
-        );
-        albumRepository.findById(id).map(
-                album1 -> {
-                    if(album1.getComments() == null) {
-                        List<Comment> comments = new ArrayList<>();
-                        comments.add(comment);
-                        album1.setComments(comments);
-                    }else{
-                        album1.getComments().add(comment);
-                    }
-                    return albumRepository.save(album1);
-                }
-        );
-        commentService.saveComment(comment);
-        return "redirect:/album/{id}";
+
+    @GetMapping("/album-nahled/{id}")
+    public String viewAlbumFromIndex(Model model, @PathVariable Long id) {
+
+        Album album = albumService.getAlbumById(id).get();
+        model.addAttribute("album", album);
+        CommentDto commentDto = new CommentDto();
+        model.addAttribute("comment", commentDto);
+        return "/album-from-index";
     }
+
+
+
+    @GetMapping("/delete-album")
+    public String deleteAlbum(@RequestParam Long id) {
+        albumService.deleteAlbumById(id);
+        return "redirect:/moje-galerie";
+    }
+
     @PostMapping("like-album/{id}")
-    public String likeAlbum (@PathVariable Long id, Model model) {
+    public String likeAlbum(@PathVariable Long id, Model model) {
+
         Album album = albumService.getAlbumById(id).get();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userName = ((UserDetails) auth.getPrincipal()).getUsername();

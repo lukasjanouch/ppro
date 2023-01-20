@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
@@ -32,17 +34,19 @@ public class Album {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+    @NotNull
+    @NotEmpty(message = "Toto pole musí být vyplněno.")
     private String name;
     private String publisher;
     private String author;
     private String scale;
     //@ElementCollection//defines a mapping for a non-Entity class
-    @OneToMany(mappedBy = "album")
+    @OneToMany(mappedBy = "album", cascade = CascadeType.REMOVE)
     private List<Image> images;
     //private byte[] image;
-    @OneToMany(mappedBy = "album")
+    @OneToMany(mappedBy = "album", cascade = CascadeType.REMOVE)
     private List<Comment> comments;
-    @OneToMany(mappedBy = "album")
+    @OneToMany(mappedBy = "album", cascade = CascadeType.REMOVE)
     private List<LikeEntity> likeEntities;
 
 

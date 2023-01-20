@@ -43,7 +43,7 @@ public class RegistrationController {
     public String register(@ModelAttribute("user") @Valid UserDto userDto, BindingResult bindingResult, Model model){
     //public String register(UserDto userDto){
         if (bindingResult.hasErrors()){
-            model.addAttribute("registrationForm", userDto);
+            //model.addAttribute("registrationForm", userDto);
             System.out.println("ošetření textových polí");
             return "/registration";
         }

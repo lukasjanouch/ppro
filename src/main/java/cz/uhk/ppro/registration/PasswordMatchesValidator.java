@@ -1,5 +1,7 @@
 package cz.uhk.ppro.registration;
 
+import cz.uhk.ppro.user.ChangePasswordDto;
+import cz.uhk.ppro.user.User;
 import cz.uhk.ppro.user.UserDto;
 import cz.uhk.ppro.validation.PasswordMatches;
 
@@ -16,8 +18,13 @@ public class PasswordMatchesValidator
 
     @Override
     public boolean isValid(Object obj, ConstraintValidatorContext context) {
-        UserDto user = (UserDto) obj;
-        boolean isValid = user.getPassword().equals(user.getMatchingPassword());
+        boolean isValid;
+        if(obj instanceof UserDto user){
+            isValid = user.getPassword().equals(user.getMatchingPassword());
+        } else {
+            ChangePasswordDto user = (ChangePasswordDto) obj;
+            isValid = user.getPassword().equals(user.getMatchingPassword());
+        }
         if(!isValid){
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate(context.getDefaultConstraintMessageTemplate())

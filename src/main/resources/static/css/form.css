@@ -1,24 +1,31 @@
+div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .div-input{
     width: 230px;
 }
 section{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 form{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    width: 300px;
+    width: 290px;
 }
 #adding-elements-div{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 }
-input{
+.input-text{
     margin-bottom: 15px;
     font-family: formula1regular, fantasy;
+    width: 212px;
 }
 
 button{
@@ -35,4 +42,26 @@ button:hover{
     background-color: white;
     color: black;
     border: 2px solid red;
+}
+p{
+    margin-top: 0;
+    text-align: center;
+}
+label{
+    display: flex;
+    justify-content: center;
+}
+.btn-main{
+    margin-top: 15px;
+}
+.div-message{
+    margin-top: 15px;
+}
+.error-message{
+    font-family: formula1regular, fantasy;
+}
+.a-forgot-password{
+    font-family: formula1regular, sans-serif;
+    font-size: 14px;
+    margin-top: 15px;
 }

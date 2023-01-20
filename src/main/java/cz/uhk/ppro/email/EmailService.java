@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.io.UnsupportedEncodingException;
 
 
 @Service
@@ -36,4 +37,29 @@ public class EmailService implements EmailSender {
             throw new IllegalStateException("Nepodařilo se odeslat email");
         }
     }
+    public void sendEmailToChangePassword(String to, String link){
+        try {
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message);
+
+            helper.setFrom("lukasjanou8@seznam.cz", "Galerie modelů F1 Support");
+            helper.setSubject("Obnova hesla");
+            helper.setTo(to);
+
+            String content = "<p>Ahoj,</p>"
+                    + "<p>Zažádal/a jsi obnovu hesla.</p>"
+                    + "<p>Pro změnu hesla klikni na následující odkaz:</p>"
+                    + "<p><a href=\"" + link + "\">Změnit heslo</a></p>"
+                    + "<br>"
+                    + "<p>Pokud si heslo pamatuješ nebo jsi nezažádal/a o nové, "
+                    + "tak tento email ignoruj.</p>";
+
+            helper.setText(content, true);
+
+            mailSender.send(message);
+        }catch(Exception e){
+            LOGGER.error("Nepodařilo se odeslat email", e);//abysme neposílali uživateli původní znění výjimky
+            throw new IllegalStateException("Nepodařilo se odeslat email");
+        }
+        }
 }

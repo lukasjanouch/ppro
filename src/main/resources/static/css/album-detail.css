@@ -12,12 +12,21 @@ section{
     border-radius: 10px;
     cursor: pointer;
 }
-#p-like{
+.img-delete{
+    margin-top: 5px;
+}
+.div-other-img{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#p-like1, #p-like2{
     margin-left: 10px;
     margin-top: 0;
 }
 .p-username{
     color: red;
+    margin-bottom: 0;
 }
 .div-likes{
     display: flex;
@@ -53,4 +62,12 @@ textarea{
 .section-comments{
     display: flex;
     justify-content: flex-start;
+}
+#div-comment{
+    display: flex;
+}
+.a-delete{
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
 }

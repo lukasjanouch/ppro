@@ -22,19 +22,22 @@ public class AlbumService {
     }
 
     public List<Album> getAllActiveAlbums() {
-        return albumRepository.findAll();
+        return albumRepository.findAlbumsByOrderByName();
     }
 
     public List<Album> getAllLogedInUserAlbums() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userName = ((UserDetails) auth.getPrincipal()).getUsername();
         User user = (User) userService.loadUserByUsername(userName);
-        return albumRepository.getAlbumsByUser_Id(user.getId());
+        return albumRepository.findAlbumsByUser_IdOrderByName(user.getId());
     }
 
     public Optional<Album> getAlbumById(Long id) {
         return albumRepository.findById(id);
     }
 
+    public void deleteAlbumById(Long id){
+        albumRepository.deleteAlbumById(id);
+    }
 
 }

@@ -1,22 +1,31 @@
+.img-main{
+    border-radius: 20px;
+}
+.div-my-gallery-btns{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
 .a-album{
     text-decoration: none;
     color: black;
 }
-.albums-container{
+.albums-container, .div-album, .div-album2{
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
 }
-.album-container{
+.album-container, .div-album .div-album2{
     border: 2px solid black;
     border-radius: 25px;
-    width: 333px;
+    width: 280px;
     margin-bottom: 0.67em;
 }
-.album-container:hover{
+.div-album:hover, .a-delete:hover, .a-open:hover{
     cursor: pointer;
-    opacity: 0.6; /* css standard */
-    filter: alpha(opacity=60);
+    opacity: 0.6 /* css standard */
+    /*filter: alpha(opacity=60);*/
 }
 .p-headline{
     font-family: formula1bold, fantasy;
@@ -30,5 +39,10 @@
     justify-content: space-around;
     flex-wrap: wrap;
     margin-bottom: 15px;
+}
+#div-buttons{
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 10px;
 }
 

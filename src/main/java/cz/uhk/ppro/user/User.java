@@ -33,29 +33,29 @@ public class User implements UserDetails {
     //atributy, které není potřeba ukládat do db označujeme @Transient
     //např. věk, protože lze vypočítat z data narození
     private Long id;
-    private String firstName;
-    private String lastName;
+    @Column(unique = true)
+    private String username;
     @Column(unique = true)
     private String email;
     private String password;
     //@ElementCollection
     //private Set<? extends GrantedAuthority> grantedAuthorities;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Album> albums;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Comment> comments;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<LikeEntity> likeEntities;
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
     private Boolean locked = false;
     private Boolean enabled = false;
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
 
-    public User(String firstName, String lastName, String email, String password,
-                UserRole userRole) {
+    public User(String username, String email, String password, UserRole userRole) {
                 //Set<? extends GrantedAuthority> grantedAuthorities) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.username = username;
         this.email = email;
         this.password = password;
         //this.grantedAuthorities = grantedAuthorities;
@@ -68,13 +68,9 @@ public class User implements UserDetails {
         return Collections.singletonList(authority);
         //return grantedAuthorities;
     }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
+    @Override
+    public String getUsername() {
+        return username;
     }
 
     @Override
@@ -82,8 +78,8 @@ public class User implements UserDetails {
         return password;
     }
 
-    @Override
-    public String getUsername() {
+
+    public String getEmail() {
         return email;
     }
 
