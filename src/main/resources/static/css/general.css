@@ -86,5 +86,20 @@ button:hover{
     border: 2px solid red;
     padding: 8px 22px
 }
-
+#form-search{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2em;
+}
+#input-search{
+    font-family: formula1regular, sans-serif;
+    margin-right: 10px;
+}
+#div-filter-forms{
+    display: flex;
+    justify-content: space-evenly;
+}
+#form-select{
+    font-family: formula1regular, sans-serif;
+}
 

@@ -14,6 +14,7 @@ import cz.uhk.ppro.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -47,8 +48,43 @@ public class AlbumController {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 
-
-
+    @GetMapping(path = {"/","/search-album", "/select-team"})//všechny albumy
+    public String showAlbums(Model model, @Param("keyword") String keyword, String team) {
+        List<Album> list;
+        if(keyword == null && "".equals(team)) {
+            list = albumService.getAllActiveAlbums();
+        } else if (keyword != null) {
+            list = albumService.getByKeyword(keyword);
+        } else if (team != null) {
+            list = albumService.getByKeyword(team);
+        } else {
+            list = albumService.getAllActiveAlbums();
+        }
+        model.addAttribute("albumList", list);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("team", team);
+        System.out.println(albumService.getAlbumById(3L));
+        return "/index";
+    }
+/*
+    @PostMapping("/select-team")
+    public String showAlbumsByTeam(String team, Model model){
+        List<Album> list;
+        if(!"VsechnyTymy".equals(team)) {
+            list = albumService.getByKeyword(team);
+            for (Album album: list) {
+                System.out.println(album.getName());
+            }
+            System.out.println(team);
+        }else {
+            list = albumService.getAllActiveAlbums();
+        }
+        model.addAttribute("albumList", list);
+        model.addAttribute("keyword", "");
+        model.addAttribute("team", team);
+        return "/index";
+    }
+*/
     @GetMapping("/nove-album")
     public String getNewAlbumView(Model model) {
         model.addAttribute("album", new AlbumDto());
@@ -137,12 +173,7 @@ public class AlbumController {
         return "/my-gallery";
     }
 
-    @GetMapping("/")//všechny albumy
-    public String showAllAlbums(Model model) {
-        model.addAttribute("albumList", albumService.getAllActiveAlbums());
-        System.out.println(albumService.getAlbumById(3L));
-        return "/index";
-    }
+
 
     @GetMapping("/album/{id}")
     public String viewAlbumDetail(Model model, @PathVariable Long id) {

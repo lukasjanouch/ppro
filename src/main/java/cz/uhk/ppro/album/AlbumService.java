@@ -31,7 +31,6 @@ public class AlbumService {
         User user = (User) userService.loadUserByUsername(userName);
         return albumRepository.findAlbumsByUser_IdOrderByName(user.getId());
     }
-
     public Optional<Album> getAlbumById(Long id) {
         return albumRepository.findById(id);
     }
@@ -40,4 +39,7 @@ public class AlbumService {
         albumRepository.deleteAlbumById(id);
     }
 
+    public List<Album> getByKeyword(String keyword){
+        return albumRepository.findByKeyword(keyword);
+    }
 }
