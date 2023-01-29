@@ -6,6 +6,8 @@ import cz.uhk.ppro.user.User;
 import cz.uhk.ppro.user.UserRepository;
 import cz.uhk.ppro.user.UserRole;
 import cz.uhk.ppro.user.UserService;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,12 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class AdminController {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private ConfirmationTokenService confirmationTokenService;
+    private final ConfirmationTokenService confirmationTokenService;
 
     @GetMapping("/uzivatele")
     String getUsersView(Model model){

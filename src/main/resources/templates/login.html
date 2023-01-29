@@ -7,8 +7,10 @@
     <link href = "/images/favicon.png" rel = "icon" type = "image/png" >
     <link href = "/css/general.css" rel = "stylesheet">
     <link href = "/css/form.css" rel = "stylesheet">
+    <link href = "/css/login.css" rel = "stylesheet">
 </head>
 <body>
+<section class="section1">
 <header>
     <nav>
         <ul>
@@ -26,6 +28,8 @@
         </select>
     </nav>
 </header>
+</section>
+<section class="section2">
 <section id="section-login">
     <form method="post" action="/login">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
@@ -49,6 +53,12 @@
 
     <a class="a-forgot-password" th:href="@{/forgot_password}">Zapomněl/a jste heslo?</a>
 
+</section>
+</section>
+<section class="section3">
+    <div id="div-footer">
+        <div th:replace="fragments/footer :: footer"></div>
+    </div>
 </section>
 </body>
 </html>

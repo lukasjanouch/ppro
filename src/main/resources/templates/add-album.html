@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Galerie modelů F1 | Nové album</title>
     <link href = "/images/favicon.png" rel = "icon" type = "image/png" >
     <link href = "/css/general.css" rel = "stylesheet">
     <link href = "/css/form.css" rel = "stylesheet">
-    <!--<script src="/js/change-main-img.js"></script>-->
+    <link href = "/css/add-album.css" rel = "stylesheet">
 </head>
 <body>
+<section class="section1">
 <header>
   <div>
     <form class="form-signin" method="get" action="/logout"><!--když máme nepovoleno crsf() tak method="get", jinak "post"-->
@@ -38,6 +39,8 @@
 
   </div>
 </header>
+    </section>
+<section class="section2">
 <h2>Nové album</h2>
 <section>
     <form action="#" th:action="@{/addAlbum}" th:object="${album}" method="post"><!--enctype="multipart/form-data"-->
@@ -54,6 +57,66 @@
             <input class="input-text" type="text" placeholder="Autor" th:field="*{author}" />
 
             <input class="input-text" type="text" placeholder="Měřítko" th:field="*{scale}" />
+
+            <select th:field="*{categoryDto.name}" name="team">
+                    <option th:value="''" >Vyberte tým</option>
+                    <option value="ATS">ATS</option>
+                    <option value="Alfa Romeo">Alfa Romeo</option>
+                    <option value="Alpha Tauri">Alpha Tauri</option>
+                    <option value="Amon">Amon</option>
+                    <option value="Arrows">Arrows</option>
+                    <option value="BAR">BAR</option>
+                    <option value="BMW Sauber">BMW Sauber</option>
+                    <option value="BRM">BRM</option>
+                    <option value="Benetton">Benetton</option>
+                    <option value="Boro">Boro</option>
+                    <option value="Brabham">Brabham</option>
+                    <option value="Brawn">Brawn</option>
+                    <option value="Coloni">Coloni</option>
+                    <option value="Ensign">Ensign</option>
+                    <option value="Euroburn">Eurobrun</option>
+                    <option value="Ferrari">Ferrari</option>
+                    <option value="Fittipaldi">Fittipaldi</option>
+                    <option value="ForceIndia">Force India</option>
+                    <option value="Hesketh">Hesketh</option>
+                    <option value="Iso Marlboro">Iso Marlboro</option>
+                    <option value="Jaguar">Jaguar</option>
+                    <option value="Jordan">Jordan</option>
+                    <option value="Larrousse">Larrousse</option>
+                    <option value="LeytonHouse">Leyton House</option>
+                    <option value="Life">Life</option>
+                    <option value="Ligier">Ligier</option>
+                    <option value="Lola Haas">Lola Haas</option>
+                    <option value="Lotus">Lotus</option>
+                    <option value="March">March</option>
+                    <option value="Martini">Martini</option>
+                    <option value="Maserati">Maserati</option>
+                    <option value="Matra">Matra</option>
+                    <option value="Mclaren">Mclaren</option>
+                    <option value="Mercedes">Mercedes</option>
+                    <option value="Minardi">Minardi</option>
+                    <option value="Osella">Osella</option>
+                    <option value="Parnelli">Parnelli</option>
+                    <option value="Penske">Penske</option>
+                    <option value="Prost">Prost</option>
+                    <option value="RAM">RAM</option>
+                    <option value="Red Bull">Red Bull</option>
+                    <option value="Renault">Renault</option>
+                    <option value="Sauber">Sauber</option>
+                    <option value="Shadow">Shadow</option>
+                    <option value="Stewart">Stewart</option>
+                    <option value="Surtees">Surtees</option>
+                    <option value="Tecno">Tecno</option>
+                    <option value="Toleman">Toleman</option>
+                    <option value="Toro Rosso">Toro Rosso</option>
+                    <option value="Toyota">Toyota</option>
+                    <option value="Tyrrell">Tyrrell</option>
+                    <option value="Virgin">Virgin</option>
+                    <option value="Williams">Williams</option>
+                    <option value="Wolf">Wolf</option>
+                    <option value="Zakspeed">Zakspeed</option>
+                </select>
+
         <!--<label>Foto:</label>
             <div th:each="image, itemStat : *{images}">
                 <input class="img-input" type="file" th:field="*{images[__${itemStat.index}__].image}"/>
@@ -67,6 +130,11 @@
 <div>
     <p th:text="${message}">Error</p>
 </div>
-
+</section>
+<section class="section3">
+<div id="div-footer">
+    <div th:replace="fragments/footer :: footer"></div>
+</div>
+</section>
 </body>
 </html>

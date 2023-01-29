@@ -11,7 +11,13 @@
     text-decoration: none;
     color: black;
 }
-.albums-container, .div-album, .div-album2{
+.albums-container{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+ .div-album, .div-album2{
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;

@@ -9,7 +9,7 @@
     <script type="text/javascript" src="/js/change-main-img.js"></script>
 </head>
 <body>
-
+<section class="section1">
     <div>
         <form class="form-signin" method="post" action="/logout"><!--když máme nepovoleno crsf() tak method="get", jinak "post"-->
             <input
@@ -35,6 +35,8 @@
             </select>
         </nav>
     </div>
+</section>
+<section class="section2">
     <header>
         <h2>Můj profil</h2>
     </header>
@@ -114,7 +116,7 @@
             <!--<p class="p-alert">(Po změně hesla bude nutné se opět přhlásit.)</p>-->
             <button id="btn-change-password" type="submit">Změnit heslo</button>
         </form>
-        <div class="div-message">
+        <div th:if="${passwordMess} != null" class="div-message">
             <p class="p-alert" th:text="${passwordMess}">Heslo bylo úspěšně změněno.</p>
         </div>
 
@@ -122,5 +124,11 @@
         <p class="p-info" th:text="${'Počet fotek: ' + imgsCount}">Počet fotek:</p>
     </div>
     </section>
+</section>
+<section class="section3">
+    <div id="div-footer">
+        <div th:replace="fragments/footer :: footer"></div>
+    </div>
+</section>
 </body>
 </html>

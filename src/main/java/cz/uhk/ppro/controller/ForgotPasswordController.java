@@ -4,6 +4,8 @@ import cz.uhk.ppro.Utility;
 import cz.uhk.ppro.album.Album;
 import cz.uhk.ppro.email.EmailService;
 import cz.uhk.ppro.user.*;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -26,12 +28,13 @@ import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 
 @Controller
+@RequiredArgsConstructor
 public class ForgotPasswordController {
-    @Autowired
-    private EmailService emailService;
 
-    @Autowired
-    private UserService userService;
+    private final EmailService emailService;
+
+
+    private final UserService userService;
 
     @GetMapping("/forgot_password")
     public String showForgotPasswordForm(Model model) {

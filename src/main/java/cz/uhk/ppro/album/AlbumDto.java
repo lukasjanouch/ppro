@@ -1,5 +1,7 @@
 package cz.uhk.ppro.album;
 
+import cz.uhk.ppro.album.category.Category;
+import cz.uhk.ppro.album.category.CategoryDto;
 import cz.uhk.ppro.album.image.ImageDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,10 +23,8 @@ public class AlbumDto {
     private String publisher;
     private String author;
     private String scale;
+    private CategoryDto categoryDto;
     //private MultipartFile image;
     private List<ImageDto> images = new ArrayList<>();
     //private List<ImageDto> images;
-    public void addImage(ImageDto image){
-        this.images.add(image);
-    }
 }

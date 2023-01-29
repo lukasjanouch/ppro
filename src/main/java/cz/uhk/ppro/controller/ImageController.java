@@ -8,6 +8,8 @@ import cz.uhk.ppro.album.image.ImageDto;
 import cz.uhk.ppro.album.image.ImageService;
 import cz.uhk.ppro.user.User;
 import cz.uhk.ppro.user.UserService;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,21 +36,17 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@RequiredArgsConstructor
 public class ImageController {
 
     @Value("")
     private String uploadFolder;
 
-    @Autowired
-    private AlbumService albumService;
+    private final AlbumService albumService;
 
-    @Autowired
-    private ImageService imageService;
+    private final ImageService imageService;
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-
-
-
 
     @GetMapping("pridat-obrazky/{id}")
     String getAddImagesView(@PathVariable Long id, Model model){

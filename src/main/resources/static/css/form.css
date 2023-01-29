@@ -43,7 +43,11 @@ button:hover{
     color: black;
     border: 2px solid red;
 }
-p{
+.p-footer1{
+    font-size: small;
+}
+.p-footer2{
+    font-size: small;
     margin-top: 0;
     text-align: center;
 }
@@ -65,3 +69,11 @@ label{
     font-size: 14px;
     margin-top: 15px;
 }
+#section-main{
+    display: block;
+    min-height: 92.7vh;
+}
+select{
+    margin-bottom: 15px;
+}
+

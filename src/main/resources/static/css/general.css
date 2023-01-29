@@ -1,6 +1,10 @@
 @import "font-custom-f1.css";
 body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     margin: 0 0 0 0;
+    min-height: 100vh;
 }
 nav select {
     display: none;
@@ -40,6 +44,7 @@ ul {
     display: flex;
     padding-inline-start: 0;
     margin-top: 0;
+    margin-bottom: 0;
     list-style: none;}
 nav {
     background-color: white;
@@ -49,11 +54,17 @@ nav {
 h1 {
     font-family: formula1wide, fantasy;
     text-align: center;
-    margin-block-end: 1.67em
+    margin-block-end: 1em
 }
-h2, h3 {
+h2{
     font-family: formula1wide, fantasy;
     text-align: center;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+h3 {
+    font-family: formula1wide, fantasy;
+    text-align: start;
 }
 .img-logo{
     padding-left: 50px;
@@ -98,8 +109,56 @@ button:hover{
 #div-filter-forms{
     display: flex;
     justify-content: space-evenly;
+    margin-bottom: 20px;
 }
-#form-select{
+option, select{
     font-family: formula1regular, sans-serif;
 }
 
+footer{
+    align-self: center;
+    background: black;
+    color: white;
+    font-family: formula1regular, sans-serif;
+    font-size: small;
+    position: relative;
+    bottom: 0;
+    margin-bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+#div-section-footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 76.5vh;
+}
+.img-logo-footer{
+    padding-left: 50px;
+    padding-right: 25px;
+    height: 58px;
+    background-color: black;
+    margin: 7px 0 0 0;
+}
+.p-footer1. .p-footer2{
+    font-size: small;
+}
+#div-footer-text{
+    margin-right: 20px;
+}
+
+#div-footer{
+    display: flex;
+    justify-content: center;
+    background: black;
+
+    width: 100%;
+}
+.section1{
+    display: flex;
+    align-items: flex-start;
+}
+.section2{
+
+}

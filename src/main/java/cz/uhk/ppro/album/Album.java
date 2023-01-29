@@ -1,5 +1,6 @@
 package cz.uhk.ppro.album;
 
+import cz.uhk.ppro.album.category.Category;
 import cz.uhk.ppro.album.comment.Comment;
 import cz.uhk.ppro.album.image.Image;
 import cz.uhk.ppro.album.like.LikeEntity;
@@ -48,6 +49,8 @@ public class Album {
     private List<Comment> comments;
     @OneToMany(mappedBy = "album", cascade = CascadeType.REMOVE)
     private List<LikeEntity> likeEntities;
+    @ManyToOne
+    private Category category;
 
 
 }

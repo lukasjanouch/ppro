@@ -5,8 +5,10 @@
   <link href = "/images/favicon.png" rel = "icon" type = "image/png" >
   <link href = "/css/general.css" rel = "stylesheet">
   <link href = "/css/form.css" rel = "stylesheet">
+  <link href = "/css/registration.css" rel = "stylesheet">
 </head>
 <body>
+<section class="section1">
 <header>
   <nav>
     <ul>
@@ -24,7 +26,9 @@
     </select>
   </nav>
 </header>
-<h2>Registrace</h2>
+</section>
+<section class="section2">
+<h2 class="h2-registration">Registrace</h2>
 <section>
 <form action="/register" th:object="${user}" method="POST">
   <!--nevymazávat, csrf token-->
@@ -63,6 +67,11 @@
 </form>
 
 </section>
-
+</section>
+<section class="section3">
+  <div id="div-footer">
+    <div th:replace="fragments/footer :: footer"></div>
+  </div>
+</section>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package cz.uhk.ppro.album;
 
+import cz.uhk.ppro.album.category.Category;
 import cz.uhk.ppro.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,6 +19,8 @@ public interface AlbumRepository extends JpaRepository<Album, Long> {
 
     @Query(value = "select * from album a where a.name like %:keyword%", nativeQuery = true)
     List<Album> findByKeyword(@Param("keyword") String keyword);
+
+    List<Album> findByCategory(Category category);
 
     void deleteAlbumById(Long id);
 }

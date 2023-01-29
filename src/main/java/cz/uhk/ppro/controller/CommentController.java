@@ -9,6 +9,8 @@ import cz.uhk.ppro.album.comment.CommentService;
 import cz.uhk.ppro.user.User;
 import cz.uhk.ppro.user.UserRepository;
 import cz.uhk.ppro.user.UserService;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,18 +23,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class CommentController {
 
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private CommentService commentService;
-    @Autowired
-    private CommentRepository commentRepository;
-    @Autowired
-    private AlbumRepository albumRepository;
+    private final UserService userService;
+
+    private final UserRepository userRepository;
+
+    private final CommentService commentService;
+
+    private final CommentRepository commentRepository;
+
+    private final AlbumRepository albumRepository;
 
     @PostMapping("/comment-album/{id}")
     public String addComment(@PathVariable Long id, @ModelAttribute CommentDto commentDto, @ModelAttribute Album album,

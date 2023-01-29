@@ -8,6 +8,7 @@
     <link href="/css/album.css" rel="stylesheet">
 </head>
 <body>
+<section class="section1">
 <div sec:authorize="isAnonymous()">
     <nav>
         <ul>
@@ -53,9 +54,12 @@
         </select>
     </nav>
 </div>
+</section>
+<section class="section2">
 <header>
     <h1>Galerie modelů F1</h1>
 </header>
+
 <section>
     <div id="div-filter-forms">
         <form id="form-search" th:action="@{/search-album}" method="GET">
@@ -64,82 +68,17 @@
         </form>
         <form id="form-select" th:action="@{/select-team}" method="GET">
             <select name="team">
-                <option th:value="${team}" th:text="${team}"></option>
-                <option value="ATS">ATS</option>
-                <option value="Alfa Romeo">Alfa Romeo</option>
-                <option value="Alpha Tauri">Alpha Tauri</option>
-                <option value="Amon">Amon</option>
-                <option value="Arrows">Arrows</option>
-                <option value="BAR">BAR</option>
-                <option value="BMW Sauber">BMW Sauber</option>
-                <option value="BRM">BRM</option>
-                <option value="Benetton">Benetton</option>
-                <option value="Boro">Boro</option>
-                <option value="Brabham">Brabham</option>
-                <option value="Brawn">Brawn</option>
-                <option value="Coloni">Coloni</option>
-                <option value="Ensign">Ensign</option>
-                <option value="Euroburn">Eurobrun</option>
-                <option value="Ferrari">Ferrari</option>
-                <option value="Fittipaldi">Fittipaldi</option>
-                <option value="ForceIndia">Force India</option>
-                <option value="Hesketh">Hesketh</option>
-                <option value="Iso Marlboro">Iso Marlboro</option>
-                <option value="Jaguar">Jaguar</option>
-                <option value="Jordan">Jordan</option>
-                <option value="Larrousse">Larrousse</option>
-                <option value="LeytonHouse">Leyton House</option>
-                <option value="Life">Life</option>
-                <option value="Ligier">Ligier</option>
-                <option value="Lola Haas">Lola Haas</option>
-                <option value="Lotus">Lotus</option>
-                <option value="March">March</option>
-                <option value="Martini">Martini</option>
-                <option value="Maserati">Maserati</option>
-                <option value="Matra">Matra</option>
-                <option value="Mclaren">Mclaren</option>
-                <option value="Mercedes">Mercedes</option>
-                <option value="Minardi">Minardi</option>
-                <option value="Osella">Osella</option>
-                <option value="Parnelli">Parnelli</option>
-                <option value="Penske">Penske</option>
-                <option value="Prost">Prost</option>
-                <option value="RAM">RAM</option>
-                <option value="Red Bull">Red Bull</option>
-                <option value="Renault">Renault</option>
-                <option value="Sauber">Sauber</option>
-                <option value="Shadow">Shadow</option>
-                <option value="Stewart">Stewart</option>
-                <option value="Surtees">Surtees</option>
-                <option value="Tecno">Tecno</option>
-                <option value="Toleman">Toleman</option>
-                <option value="Toro Rosso">Toro Rosso</option>
-                <option value="Toyota">Toyota</option>
-                <option value="Tyrrell">Tyrrell</option>
-                <option value="Virgin">Virgin</option>
-                <option value="Williams">Williams</option>
-                <option value="Wolf">Wolf</option>
-                <option value="Zakspeed">Zakspeed</option>
+                <option value=""></option>
+                <option th:each="category : ${categoryList}"
+                        th:value="${category.name}"
+                        th:text="${category.name} + ' (' + ${category.albums.size()} + ') '">F1 team
+                </option>
             </select>
             <button type="submit">Filtrovat</button>
         </form>
     </div>
-    <div th:unless="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="albums-container">
-        <div class="album-container" th:each="album : ${albumList}">
-            <div class="div-album">
-                <a class="a-album" th:href="@{${'/album-nahled/' + album.id}}">
-                    <p class="p-headline" th:text="${album.name}">Název alba</p>
-                    <div class="img-container">
-                        <img class="img-main" th:if="${album.getImages().size()} > 0"
-                             th:src="@{${'/image/display/'+ album.getImages().get(0).getId()}}" height="150" width="220"
-                             alt="F1 model"/>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-    </div>
-    <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="albums-container">
+
+    <div class="albums-container">
         <div class="album-container" th:each="album : ${albumList}">
 
             <p class="p-headline" th:text="${album.name}">Název alba</p>
@@ -149,10 +88,13 @@
                      alt="F1 model"/>
             </div>
             <div id="div-buttons">
-                <a class="a-open" th:href="@{${'/album/' + album.id}}">
-                    <input type="image" class="img-delete" src="/images/open.png" height="18">
+                <a sec:authorize="isAnonymous()" class="a-open" th:href="@{${'/album-nahled/' + album.id}}" >
+                    <input type="image" class="img-open" src="/images/open.png" height="18">
                 </a>
-                <a class="a-delete"
+                <a sec:authorize="isAuthenticated()" class="a-open" th:href="@{${'/album/' + album.id}}" >
+                    <input type="image" class="img-open" src="/images/open.png" height="18">
+                </a>
+                <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="a-delete"
                    th:href="@{/delete-album(id=${album.id})}"
                    th:data-confirm-delete="|Opravdu chcete smazat album ${album.name}?|"
                    onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">
@@ -163,9 +105,15 @@
     </div>
 
 
-    </div>
-</section>
 
+</section>
+</section>
+<section class="section3">
+<div id="div-footer">
+    <div th:replace="fragments/footer :: footer"></div>
+</div>
+</section>
 </body>
+
 </html>
 

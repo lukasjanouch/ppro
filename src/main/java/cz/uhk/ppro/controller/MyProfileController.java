@@ -7,6 +7,8 @@ import cz.uhk.ppro.registration.RegistrationService;
 import cz.uhk.ppro.registration.token.ConfirmationToken;
 import cz.uhk.ppro.registration.token.ConfirmationTokenService;
 import cz.uhk.ppro.user.*;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -28,17 +30,18 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Controller
+@RequiredArgsConstructor
 public class MyProfileController {
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private ConfirmationTokenService confirmationTokenService;
-    @Autowired
-    private EmailSender emailSender;
-    @Autowired
-    private RegistrationService registrationService;
+
+    private final UserService userService;
+
+    private final UserRepository userRepository;
+
+    private final ConfirmationTokenService confirmationTokenService;
+
+    private final EmailSender emailSender;
+
+    private final RegistrationService registrationService;
 
     @GetMapping("muj-profil")
     public String getProfileView(Model model) {

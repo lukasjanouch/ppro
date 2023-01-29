@@ -12,7 +12,7 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public interface LikeRepository extends JpaRepository<LikeEntity, Long> {
     @Override
-    void deleteById(Long aLong);
+    void deleteById(Long id);
 
     Optional<List<LikeEntity>> getAllByAlbum(Album album);
 

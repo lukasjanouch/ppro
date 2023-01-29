@@ -1,0 +1,11 @@
+h2{
+    margin-bottom: 30px;
+}
+.section2{
+    margin-bottom: 120px;
+}
+#div-team{
+    display: flex;
+    font-family: formula1regular, sans-serif;
+    width: 250px;
+}

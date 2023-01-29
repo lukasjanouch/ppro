@@ -7,8 +7,10 @@
     <link href="/images/favicon.png" rel="icon" type="image/png">
     <link href="/css/general.css" rel="stylesheet">
     <link href="/css/form.css" rel="stylesheet">
+    <link href="/css/add-images.css" rel="stylesheet">
 </head>
 <body>
+<section class="section1">
 <header>
     <div>
         <form class="form-signin" method="get" action="/logout">
@@ -40,6 +42,8 @@
 
     </div>
 </header>
+</section>
+<section class="section2">
 <h2>Přidat obrázky</h2>
 <section>
     <form action="#" th:action="@{/addImages/{id}(id=${album.id})}" th:object="${album}" method="post"
@@ -58,6 +62,11 @@
         </div>
     </form>
 </section>
-
+</section>
+<section class="section3">
+    <div id="div-footer">
+        <div th:replace="fragments/footer :: footer"></div>
+    </div>
+</section>
 </body>
 </html>

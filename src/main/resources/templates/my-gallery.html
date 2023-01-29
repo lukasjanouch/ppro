@@ -9,6 +9,7 @@
     <link href="/css/my-gallery.css" rel="stylesheet">
 </head>
 <body>
+<section class="section1">
 <header>
     <div>
         <form class="form-signin" method="post" action="/logout">
@@ -38,6 +39,8 @@
         </nav>
     </div>
 </header>
+</section>
+<section class="section2">
 <h2>Moje galerie</h2>
 <section>
     <div class="albums-container">
@@ -63,6 +66,12 @@
                 </div>
             </div>
         </div>
+    </div>
+</section>
+</section>
+<section class="section3">
+    <div id="div-footer">
+        <div th:replace="fragments/footer :: footer"></div>
     </div>
 </section>
 </body>

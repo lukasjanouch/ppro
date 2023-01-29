@@ -8,6 +8,7 @@
     <link href="/css/delete-user.css" rel="stylesheet">
 </head>
 <body>
+<section class="section1">
 <div>
     <form class="form-signin" method="post" action="/logout">
         <!--když máme nepovoleno crsf() tak method="get", jinak "post"-->
@@ -35,7 +36,10 @@
         </select>
     </nav>
 </div >
+</section>
+<section class="section2">
     <h2>Uživatelé</h2>
+</section>
 <section id="section-users">
     <div id="div-user" th:each="user : ${usersList}">
         <p class="p-headline" th:text="${user.username}">uživatelské jméno</p>
@@ -45,6 +49,11 @@
            onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">
             <input type="image" class="img-delete" src="/images/delete.png" width="18" height="18">
         </a>
+    </div>
+</section>
+<section class="section3">
+    <div id="div-footer">
+        <div th:replace="fragments/footer :: footer"></div>
     </div>
 </section>
 </body>

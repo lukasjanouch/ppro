@@ -1,5 +1,6 @@
 package cz.uhk.ppro.album;
 
+import cz.uhk.ppro.album.category.Category;
 import cz.uhk.ppro.user.User;
 import cz.uhk.ppro.user.UserService;
 import lombok.AllArgsConstructor;
@@ -25,11 +26,8 @@ public class AlbumService {
         return albumRepository.findAlbumsByOrderByName();
     }
 
-    public List<Album> getAllLogedInUserAlbums() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String userName = ((UserDetails) auth.getPrincipal()).getUsername();
-        User user = (User) userService.loadUserByUsername(userName);
-        return albumRepository.findAlbumsByUser_IdOrderByName(user.getId());
+    public List<Album> getAlbumsByUserId(Long id) {
+        return albumRepository.findAlbumsByUser_IdOrderByName(id);
     }
     public Optional<Album> getAlbumById(Long id) {
         return albumRepository.findById(id);
@@ -42,4 +40,6 @@ public class AlbumService {
     public List<Album> getByKeyword(String keyword){
         return albumRepository.findByKeyword(keyword);
     }
+
+    public List<Album> getByCategory(Category category){return albumRepository.findByCategory(category);}
 }

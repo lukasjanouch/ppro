@@ -2,6 +2,8 @@ package cz.uhk.ppro.controller;
 
 import cz.uhk.ppro.user.User;
 import cz.uhk.ppro.user.UserService;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,10 +15,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller//jako @Component; Dependency injection
+@RequiredArgsConstructor
 @RequestMapping("/")
 public class TemplateController {
-    @Autowired
-    UserService userService;
+
+    final UserService userService;
 
     @GetMapping("login")
     public String getLoginView(){
