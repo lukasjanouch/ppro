@@ -66,7 +66,7 @@ public class AlbumController {
         model.addAttribute("team", team);
         model.addAttribute("categoryList", categories);
         System.out.println(albumService.getAlbumById(3L));
-        return "/index";
+        return "index";
     }
 
     @GetMapping("/nove-album")
@@ -109,7 +109,7 @@ public class AlbumController {
             }else {
                 model.addAttribute("album", albumDto);
                 model.addAttribute("message", "Pro účel filtrování musí být vybrán tým.");
-                return "/add-album";
+                return "add-album";
             }
             album.setName(names[0]);
             //album.setImage(imageData);
@@ -130,7 +130,7 @@ public class AlbumController {
         } catch (Exception e) {
             e.printStackTrace();
             log.info("Exception: " + e);
-            return "/error";
+            return "error";
         }
     }
 
@@ -144,7 +144,7 @@ public class AlbumController {
             model.addAttribute("loggedUser", loggedUser);
             model.addAttribute("albumList", albumService.getAlbumsByUserId(loggedUser.getId()));
         }
-        return "/my-gallery";
+        return "my-gallery";
     }
 
     @GetMapping("/album/{id}")
@@ -166,7 +166,7 @@ public class AlbumController {
 
         CommentDto commentDto = new CommentDto();
         model.addAttribute("comment", commentDto);
-        return "/album-detail";
+        return "album-detail";
     }
 
     @GetMapping("/album-nahled/{id}")
@@ -176,7 +176,7 @@ public class AlbumController {
         model.addAttribute("album", album);
         CommentDto commentDto = new CommentDto();
         model.addAttribute("comment", commentDto);
-        return "/album-from-index";
+        return "album-from-index";
     }
 
     @GetMapping("/delete-album")

@@ -7,7 +7,7 @@ server:
 spring:
   datasource:
     password: 2172/fomo
-    url: jdbc:mysql://localhost:3306/ppro
+    url: jdbc:mysql://db:3306/ppro
     username: root
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
@@ -24,7 +24,7 @@ spring:
     store-type: jdbc
     jdbc:
       schema: classpath:org/springframework/session/jdbc/schema-@@platform@@.sql
-      initialize-schema: embedded
+      initialize-schema: always
       table-name: SPRING_SESSION
   servlet:
     multipart:
@@ -32,13 +32,14 @@ spring:
       file-size-threshold: 2KB
       max-file-size: 50MB
       max-request-size: 75MB
+
   mvc:
     hidden-method:
       filter:
         enabled: true
 
   mail:
-    host: localhost
+    host: email
     port: 1025
     username: hello
     password: hello

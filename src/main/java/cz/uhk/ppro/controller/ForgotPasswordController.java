@@ -49,7 +49,7 @@ public class ForgotPasswordController {
                                         Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "/forgot_password";
+            return "forgot_password";
         }
         String email = emailDto.getEmail();
         // request.getParameter("email");
@@ -58,7 +58,7 @@ public class ForgotPasswordController {
             userService.updateResetPasswordToken(token, email);
         }catch (Exception e){
             model.addAttribute("message", "Neexistuje žádný uživatel se zadaným emailem.");
-            return "/forgot_password";
+            return "forgot_password";
         }
         String resetPasswordLink = Utility.getSiteURL(request) + "/reset_password?token=" + token;
         emailService.sendEmailToChangePassword(email, resetPasswordLink);
@@ -82,7 +82,7 @@ public class ForgotPasswordController {
     public String processResetPassword(HttpServletRequest request, @ModelAttribute("userPassword") @Valid ChangePasswordDto passwordDto,
                                        BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "/reset_password";
+            return "reset_password";
         }
         String token = request.getParameter("token");
         String password = passwordDto.getPassword();

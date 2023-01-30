@@ -36,7 +36,7 @@ public class RegistrationController {
         UserDto userDto = new UserDto();
         model.addAttribute("user", userDto);
         System.out.println("Provedl se požadavek GET.");
-        return "/registration";
+        return "registration";
     }
 
     @PostMapping("/register")
@@ -45,14 +45,14 @@ public class RegistrationController {
         if (bindingResult.hasErrors()){
             //model.addAttribute("registrationForm", userDto);
             System.out.println("ošetření textových polí");
-            return "/registration";
+            return "registration";
         }
         try {
             registrationService.register(userDto);
         }catch(UserAlreadyExistsException exception) {
                 model.addAttribute("message", exception.getMessage());
             System.out.println(exception.getMessage());
-            return "/registration";
+            return "registration";
         }
         registrationService.register(userDto);
         System.out.println("Provedl se požadavek POST.");
@@ -62,7 +62,7 @@ public class RegistrationController {
     @GetMapping("/registrace/confirm")
     public String confirm(@RequestParam("token") String token) {
         registrationService.confirmToken(token);
-        return "/login";
+        return "login";
     }
 }
 

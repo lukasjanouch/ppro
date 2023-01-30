@@ -89,6 +89,7 @@ public class MyProfileController {
             model.addAttribute("loggedUser", loggedUser);
             model.addAttribute("userPassword", new ChangePasswordDto());
             model.addAttribute("userUsername", new ChangeUsernameDto());
+            model.addAttribute("userEmail", new ChangeEmailDto());
             int imgsCount = 0;
             for (Album album : loggedUser.getAlbums()) {
                 imgsCount = imgsCount + album.getImages().size();
@@ -211,7 +212,7 @@ public class MyProfileController {
                 imgsCount = imgsCount + album.getImages().size();
             }
             model.addAttribute("imgsCount", imgsCount);
-            return "/my-profile";
+            return "my-profile";
         }
         userService.changePassword(id, user.getPassword());
         redirAttrs.addFlashAttribute("passwordMess", "Heslo bylo úspěšně změněno.");
